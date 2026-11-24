@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Investigação de possível injeção de comandos contra um servidor web.">
+  <title>SOC168 · Whoami Command Detected in Request Body | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Ataques Web</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC168 · Whoami Command Detected in Request Body</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Ataques Web</dd></div><div><dt>Caso</dt><dd>SOC168</dd></div><div><dt>Registro</dt><dd>Escalonamento recomendado</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Investigação de possível injeção de comandos contra um servidor web.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="resumo-do-incidente" class="level3">
+<h3>Resumo do incidente</h3>
+<p>O alerta <strong>SOC168 — Whoami Command Detected in Request
+Body</strong> indica uma possível tentativa de <em>command
+injection</em> contra o servidor web <strong>WebServer1004</strong>. -
+<strong>IP de origem observado:</strong> <code>61.177.172.87</code> -
+<strong>Eventos encontrados:</strong> 5 eventos nos logs -
+<strong>Comandos suspeitos registrados:</strong> <code>whoami</code>,
+<code>ls</code> e <code>cat</code> - <strong>Classificação
+preliminar:</strong> atividade suspeita e não planejada, sem indicação
+nas anotações de que fosse um teste autorizado -
+<strong>Encaminhamento:</strong> validar o escopo, considerar o
+isolamento do ativo conforme o procedimento de resposta a incidentes e
+escalar para a equipe N2 &gt; <strong>Importante:</strong> uma resposta
+HTTP <code>200</code> confirma que o servidor respondeu à requisição,
+mas, isoladamente, não comprova que o comando foi executado com sucesso.
+Confirmar a execução e o impacto usando telemetria do EDR, processos e
+logs da aplicação.</p>
+</section>
+<section id="investigação" class="level3">
+<h3>Investigação</h3>
+<section id="alerta-e-contexto-do-laboratório" class="level4">
+<h4>1. Alerta e contexto do laboratório</h4>
+<p>O alerta analisado sinaliza o comando <code>whoami</code> no corpo de
+uma requisição. A imagem abaixo registra o contexto do laboratório.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/1c231c71-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Identificação do alerta no Monitoring."><img src="images/1c231c71-001.webp" width="1440" height="148" loading="lazy" decoding="async" alt="Identificação do alerta no Monitoring."></a><figcaption>Identificação do alerta no Monitoring.</figcaption></figure>
+</section>
+<section id="busca-nos-logs" class="level4">
+<h4>2. Busca nos logs</h4>
+<p>Pesquisamos o IP <code>61.177.172.87</code> no Log Management e
+encontramos cinco eventos para análise.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/1c231c71-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta de eventos no Log Management."><img src="images/1c231c71-002.webp" width="1440" height="147" loading="lazy" decoding="async" alt="Consulta de eventos no Log Management."></a><figcaption>Consulta de eventos no Log Management.</figcaption></figure>
+</section>
+<section id="identificação-do-ativo" class="level4">
+<h4>3. Identificação do ativo</h4>
+<p>A consulta ao EDR associou a atividade ao host
+<strong>WebServer1004</strong>.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/1c231c71-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Identificação do ativo no Endpoint Security."><img src="images/1c231c71-003.webp" width="1440" height="305" loading="lazy" decoding="async" alt="Identificação do ativo no Endpoint Security."></a><figcaption>Identificação do ativo no Endpoint Security.</figcaption></figure>
+</section>
+<section id="análise-das-requisições-e-dos-comandos" class="level4">
+<h4>4. Análise das requisições e dos comandos</h4>
+<p>As anotações da investigação destacam comandos como
+<code>whoami</code>, <code>ls</code> e <code>cat</code>, compatíveis com
+tentativa de identificar o contexto do usuário e enumerar informações do
+sistema. A anotação inicial relaciona o uso de <code>cat</code> à
+consulta de arquivos de usuário/senha; confirmar nos registros os
+caminhos acessados e se houve exposição de dados.</p>
+<figure class="report-shot" data-evidence="4"><a href="images/1c231c71-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta de reputação do endereço de origem."><img src="images/1c231c71-004.webp" width="1440" height="680" loading="lazy" decoding="async" alt="Consulta de reputação do endereço de origem."></a><figcaption>Consulta de reputação do endereço de origem.</figcaption></figure>
+</section>
+<section id="reputação-e-registro-do-ip" class="level4">
+<h4>5. Reputação e registro do IP</h4>
+<p>A consulta ao VirusTotal indicou reputação maliciosa para o IP no
+momento da análise. Trate esse dado como um indicador de apoio, não como
+prova isolada de autoria.</p>
+<figure class="report-shot" data-evidence="5"><a href="images/1c231c71-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta do registro de rede (WHOIS)."><img src="images/1c231c71-005.webp" width="1072" height="675" loading="lazy" decoding="async" alt="Consulta do registro de rede (WHOIS)."></a><figcaption>Consulta do registro de rede (WHOIS).</figcaption></figure>
+<p>Também foi consultado o WHOIS. A anotação original menciona APNIC3; o
+registro de alocação ajuda a contextualizar o endereço, mas não
+identifica necessariamente quem realizou a atividade.</p>
+<figure class="report-shot" data-evidence="6"><a href="images/1c231c71-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Janela dos registros examinados."><img src="images/1c231c71-006.webp" width="1440" height="180" loading="lazy" decoding="async" alt="Janela dos registros examinados."></a><figcaption>Janela dos registros examinados.</figcaption></figure>
+</section>
+<section id="status-http-e-busca-por-e-mail" class="level4">
+<h4>6. Status HTTP e busca por e-mail</h4>
+<p>Foi observado status HTTP <code>200</code> em uma das respostas. Isso
+significa que houve resposta HTTP bem-sucedida, mas não confirma, por si
+só, a execução do comando ou o comprometimento do servidor.</p>
+<figure class="report-shot" data-evidence="7"><a href="images/1c231c71-007.webp" target="_blank" rel="noopener" aria-label="Ampliar: Verificação de eventos no Email Security."><img src="images/1c231c71-007.webp" width="1440" height="696" loading="lazy" decoding="async" alt="Verificação de eventos no Email Security."></a><figcaption>Verificação de eventos no Email Security.</figcaption></figure>
+<p>Também foi feita uma verificação relacionada a e-mail. O resultado
+dessa consulta não está descrito nas anotações; confirmar e registrar o
+que foi encontrado.</p>
+<figure class="report-shot" data-evidence="8"><a href="images/1c231c71-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa do playbook para classificar o tráfego."><img src="images/1c231c71-008.webp" width="793" height="412" loading="lazy" decoding="async" alt="Etapa do playbook para classificar o tráfego."></a><figcaption>Etapa do playbook para classificar o tráfego.</figcaption></figure>
+</section>
+</section>
+<section id="avaliação" class="level3">
+<h3>Avaliação</h3>
+<p>O conjunto de evidências é compatível com uma <strong>tentativa
+suspeita de command injection</strong>. A atividade foi registrada como
+não planejada, e o IP de origem foi sinalizado como malicioso pela
+consulta de reputação. Ainda é necessário confirmar se os comandos foram
+executados, quais dados ou processos foram acessados e se houve impacto
+no servidor.</p>
+<figure class="report-shot" data-evidence="9"><a href="images/1c231c71-009.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação do tipo de ataque."><img src="images/1c231c71-009.webp" width="704" height="288" loading="lazy" decoding="async" alt="Classificação do tipo de ataque."></a><figcaption>Classificação do tipo de ataque.</figcaption></figure>
+<p>A atividade não foi identificada como um teste autorizado da empresa,
+conforme as informações registradas.</p>
+<figure class="report-shot" data-evidence="10"><a href="images/1c231c71-010.webp" target="_blank" rel="noopener" aria-label="Ampliar: Verificação de teste planejado."><img src="images/1c231c71-010.webp" width="748" height="495" loading="lazy" decoding="async" alt="Verificação de teste planejado."></a><figcaption>Verificação de teste planejado.</figcaption></figure>
+<figure class="report-shot" data-evidence="11"><a href="images/1c231c71-011.webp" target="_blank" rel="noopener" aria-label="Ampliar: Direção do tráfego."><img src="images/1c231c71-011.webp" width="640" height="303" loading="lazy" decoding="async" alt="Direção do tráfego."></a><figcaption>Direção do tráfego.</figcaption></figure>
+</section>
+<section id="ações-recomendadas-e-encaminhamento" class="level3">
+<h3>Ações recomendadas e encaminhamento</h3>
+<ol type="1">
+<li>Confirmar no EDR/processos do host se houve execução de
+<code>whoami</code>, <code>ls</code> ou <code>cat</code>,
+correlacionando os horários com as cinco requisições.</li>
+<li>Verificar os caminhos consultados, possíveis acessos a arquivos
+sensíveis, processos filhos, conexões de saída e outros indicadores de
+comprometimento.</li>
+<li>Preservar logs e evidências; ampliar a busca pelo IP e por
+requisições semelhantes em outros ativos.</li>
+<li>Avaliar e executar o isolamento do <strong>WebServer1004</strong>
+conforme o procedimento interno, registrando quem autorizou e quando foi
+aplicado. As anotações indicam a intenção de isolar, mas não confirmam
+que a ação já foi concluída.</li>
+<li>Escalar o caso para os analistas <strong>N2</strong> para validação
+do impacto e definição das próximas medidas. A captura final registra a
+conclusão/encaminhamento documentado durante a triagem.</li>
+</ol>
+<figure class="report-shot" data-evidence="12"><a href="images/1c231c71-012.webp" target="_blank" rel="noopener" aria-label="Ampliar: Avaliação de impacto."><img src="images/1c231c71-012.webp" width="688" height="259" loading="lazy" decoding="async" alt="Avaliação de impacto."></a><figcaption>Avaliação de impacto.</figcaption></figure>
+<figure class="report-shot" data-evidence="13"><a href="images/1c231c71-013.webp" target="_blank" rel="noopener" aria-label="Ampliar: Critérios de escalonamento para a equipe N2."><img src="images/1c231c71-013.webp" width="609" height="510" loading="lazy" decoding="async" alt="Critérios de escalonamento para a equipe N2."></a><figcaption>Critérios de escalonamento para a equipe N2.</figcaption></figure>
+<figure class="report-shot" data-evidence="14"><a href="images/1c231c71-014.webp" target="_blank" rel="noopener" aria-label="Ampliar: Revisão do resultado no playbook."><img src="images/1c231c71-014.webp" width="607" height="326" loading="lazy" decoding="async" alt="Revisão do resultado no playbook."></a><figcaption>Revisão do resultado no playbook.</figcaption></figure>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../116-soc166-c-digo-javascript-detectado-na-url-solicitada/index.html"><span aria-hidden="true">←</span> Anterior: SOC166</a><a href="../soc167-ls-command-detected-in-requested-url/index.html"><span aria-hidden="true">→</span> Próximo: SOC167</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

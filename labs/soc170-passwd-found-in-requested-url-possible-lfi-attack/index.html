@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Investigação de padrão de navegação de diretórios em uma requisição web.">
+  <title>SOC170 · Possível inclusão local de arquivo (LFI) | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Ataques Web</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC170 · Possível inclusão local de arquivo (LFI)</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Ataques Web</dd></div><div><dt>Caso</dt><dd>SOC170</dd></div><div><dt>Registro</dt><dd>Comprometimento não confirmado</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Investigação de padrão de navegação de diretórios em uma requisição web.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="registro-e-triagem" class="level3">
+<h3>Registro e triagem</h3>
+<p>O ticket foi aberto para investigação.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/4d33550b-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro inicial do alerta no Monitoring."><img src="images/4d33550b-001.webp" width="1440" height="176" loading="lazy" decoding="async" alt="Registro inicial do alerta no Monitoring."></a><figcaption>Registro inicial do alerta no Monitoring.</figcaption></figure>
+<p>A reputação do IP de origem foi consultada no VirusTotal. Na consulta
+realizada, não foram apresentados indicadores maliciosos.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/4d33550b-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Resultado da consulta de reputação do endereço externo."><img src="images/4d33550b-002.webp" width="1440" height="725" loading="lazy" decoding="async" alt="Resultado da consulta de reputação do endereço externo."></a><figcaption>Resultado da consulta de reputação do endereço externo.</figcaption></figure>
+</section>
+<section id="análise-dos-logs-e-do-endpoint" class="level3">
+<h3>Análise dos logs e do endpoint</h3>
+<p>O IP do servidor foi pesquisado no sistema de gerenciamento de logs.
+A análise mostrou uma resposta HTTP 500 (erro interno do servidor) para
+a requisição investigada.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/4d33550b-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Busca dos eventos no Log Management."><img src="images/4d33550b-003.webp" width="1440" height="153" loading="lazy" decoding="async" alt="Busca dos eventos no Log Management."></a><figcaption>Busca dos eventos no Log Management.</figcaption></figure>
+<figure class="report-shot" data-evidence="4"><a href="images/4d33550b-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Identificação do servidor no Endpoint Security."><img src="images/4d33550b-004.webp" width="1440" height="372" loading="lazy" decoding="async" alt="Identificação do servidor no Endpoint Security."></a><figcaption>Identificação do servidor no Endpoint Security.</figcaption></figure>
+<p>No Endpoint Security, o IP 72.16.17.13 foi associado ao
+WebServer1006. A verificação realizada não identificou atividade
+suspeita no endpoint.</p>
+</section>
+<section id="evidências-da-requisição" class="level3">
+<h3>Evidências da requisição</h3>
+<p>O relatório registra um padrão de navegação de diretórios compatível
+com uma tentativa de acessar um arquivo de sistema do servidor.</p>
+<figure class="report-shot" data-evidence="5"><a href="images/4d33550b-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa de avaliação do tráfego."><img src="images/4d33550b-005.webp" width="636" height="348" loading="lazy" decoding="async" alt="Etapa de avaliação do tráfego."></a><figcaption>Etapa de avaliação do tráfego.</figcaption></figure>
+<figure class="report-shot" data-evidence="6"><a href="images/4d33550b-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação do tipo de alerta."><img src="images/4d33550b-006.webp" width="591" height="264" loading="lazy" decoding="async" alt="Classificação do tipo de alerta."></a><figcaption>Classificação do tipo de alerta.</figcaption></figure>
+<figure class="report-shot" data-evidence="7"><a href="images/4d33550b-007.webp" target="_blank" rel="noopener" aria-label="Ampliar: Direção do tráfego investigado."><img src="images/4d33550b-007.webp" width="685" height="303" loading="lazy" decoding="async" alt="Direção do tráfego investigado."></a><figcaption>Direção do tráfego investigado.</figcaption></figure>
+<p>As evidências consultadas mostram que a tentativa não obteve uma
+resposta bem-sucedida; o status HTTP 500 indica erro no servidor. Esse
+código, isoladamente, não confirma que a requisição foi bloqueada, mas
+não há evidência apresentada de que o conteúdo de
+<code>/etc/passwd</code> tenha sido acessado.</p>
+<figure class="report-shot" data-evidence="8"><a href="images/4d33550b-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa do playbook para avaliação de impacto."><img src="images/4d33550b-008.webp" width="697" height="259" loading="lazy" decoding="async" alt="Etapa do playbook para avaliação de impacto."></a><figcaption>Etapa do playbook para avaliação de impacto.</figcaption></figure>
+<figure class="report-shot" data-evidence="9"><a href="images/4d33550b-009.webp" target="_blank" rel="noopener" aria-label="Ampliar: Critérios de escalonamento."><img src="images/4d33550b-009.webp" width="637" height="565" loading="lazy" decoding="async" alt="Critérios de escalonamento."></a><figcaption>Critérios de escalonamento.</figcaption></figure>
+</section>
+<section id="conclusão" class="level3">
+<h3>Conclusão</h3>
+<p>As informações disponíveis são compatíveis com uma tentativa de path
+traversal/LFI, sem evidência de acesso bem-sucedido ao arquivo
+solicitado ou de atividade suspeita no endpoint durante a análise. O IP
+de origem não apresentou indicadores maliciosos na consulta ao
+VirusTotal; a geolocalização atribuída a um país, por si só, não
+comprova intenção maliciosa.</p>
+<figure class="report-shot" data-evidence="10"><a href="images/4d33550b-010.webp" target="_blank" rel="noopener" aria-label="Ampliar: Tela de revisão do resultado."><img src="images/4d33550b-010.webp" width="637" height="267" loading="lazy" decoding="async" alt="Tela de revisão do resultado."></a><figcaption>Tela de revisão do resultado.</figcaption></figure>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc169-possible-idor-attack-detected/index.html"><span aria-hidden="true">←</span> Anterior: SOC169</a><a href="../investigate-web-attack-refazer/index.html"><span aria-hidden="true">→</span> Próximo: WEB-01</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

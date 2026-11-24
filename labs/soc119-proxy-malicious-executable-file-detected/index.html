@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Análise de alerta de proxy sobre download de um arquivo executável.">
+  <title>SOC119 · Proxy: Malicious Executable File Detected | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Malware</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC119 · Proxy: Malicious Executable File Detected</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Malware</dd></div><div><dt>Caso</dt><dd>SOC119</dd></div><div><dt>Registro</dt><dd>Falso positivo</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Análise de alerta de proxy sobre download de um arquivo executável.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="registro-e-análise-do-alerta" class="level3">
+<h3>Registro e análise do alerta</h3>
+<p>Iniciamos a análise do alerta abrindo um ticket.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/e14d25a4-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Abertura do chamado de proxy."><img src="images/e14d25a4-001.webp" width="1440" height="188" loading="lazy" decoding="async" alt="Abertura do chamado de proxy."></a><figcaption>Abertura do chamado de proxy.</figcaption></figure>
+<p>Para investigar o alerta, consultamos o Endpoint Security, o Log
+Management e o VirusTotal.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/e14d25a4-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Informações do alerta no Monitoring."><img src="images/e14d25a4-002.webp" width="1406" height="194" loading="lazy" decoding="async" alt="Informações do alerta no Monitoring."></a><figcaption>Informações do alerta no Monitoring.</figcaption></figure>
+<section id="verificação-no-endpoint-security" class="level4">
+<h4>Verificação no Endpoint Security</h4>
+<p>Pesquisamos pelo endereço IP 172[.]16[.]17[.]5 no Endpoint
+Security.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/e14d25a4-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Localização do dispositivo no Endpoint Security."><img src="images/e14d25a4-003.webp" width="1440" height="395" loading="lazy" decoding="async" alt="Localização do dispositivo no Endpoint Security."></a><figcaption>Localização do dispositivo no Endpoint Security.</figcaption></figure>
+<p>Não identificamos processos maliciosos em execução no dispositivo
+durante a verificação.</p>
+</section>
+<section id="análise-no-log-management" class="level4">
+<h4>Análise no Log Management</h4>
+<p>Em seguida, consultamos o endereço IP 172[.]16[.]17[.]5 no Log
+Management.</p>
+<figure class="report-shot" data-evidence="4"><a href="images/e14d25a4-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Pesquisa de conexões no Log Management."><img src="images/e14d25a4-004.webp" width="1440" height="254" loading="lazy" decoding="async" alt="Pesquisa de conexões no Log Management."></a><figcaption>Pesquisa de conexões no Log Management.</figcaption></figure>
+<p>A análise indicou uma solicitação relacionada ao WinRAR. O registro
+apresentava os seguintes dados: - <strong>Processo:</strong>
+<code>chrome.exe</code> - <strong>URL solicitada:</strong>
+https://www.win-rar.com/postdownload.html?&amp;L=0&amp;Version=32bit -
+<strong>Ação do dispositivo:</strong> Permitida - <strong>Processo
+pai:</strong> <code>explorer.exe</code> - <strong>MD5 do processo
+pai:</strong> <code>8b88ebbb05a0e56b7dcc708498c02b3e</code> - <strong>IP
+de destino:</strong> 51[.]195[.]68[.]163</p>
+</section>
+<section id="verificação-no-virustotal" class="level4">
+<h4>Verificação no VirusTotal</h4>
+<p>Pesquisamos a URL do WinRAR no VirusTotal.</p>
+<figure class="report-shot" data-evidence="5"><a href="images/e14d25a4-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta de reputação do artefato no VirusTotal."><img src="images/e14d25a4-005.webp" width="1440" height="696" loading="lazy" decoding="async" alt="Consulta de reputação do artefato no VirusTotal."></a><figcaption>Consulta de reputação do artefato no VirusTotal.</figcaption></figure>
+<p>Os resultados indicaram que o arquivo instalado era o WinRAR
+legítimo, sem detecção de vírus.</p>
+</section>
+<section id="playbook" class="level4">
+<h4>Playbook</h4>
+<figure class="report-shot" data-evidence="6"><a href="images/e14d25a4-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Campos revisados na coleta inicial."><img src="images/e14d25a4-006.webp" width="580" height="246" loading="lazy" decoding="async" alt="Campos revisados na coleta inicial."></a><figcaption>Campos revisados na coleta inicial.</figcaption></figure>
+<figure class="report-shot" data-evidence="7"><a href="images/e14d25a4-007.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa de avaliação da reputação da URL."><img src="images/e14d25a4-007.webp" width="559" height="367" loading="lazy" decoding="async" alt="Etapa de avaliação da reputação da URL."></a><figcaption>Etapa de avaliação da reputação da URL.</figcaption></figure>
+<figure class="report-shot" data-evidence="8"><a href="images/e14d25a4-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro dos indicadores do alerta."><img src="images/e14d25a4-008.webp" width="508" height="147" loading="lazy" decoding="async" alt="Registro dos indicadores do alerta."></a><figcaption>Registro dos indicadores do alerta.</figcaption></figure>
+</section>
+<section id="conclusão" class="level4">
+<h4>Conclusão</h4>
+<p>A URL analisada é utilizada no processo padrão de instalação do
+WinRAR. No Endpoint Security, não foram identificados processos
+maliciosos no dispositivo com o IP 172[.]16[.]17[.]5. No Log Management,
+identificamos a comunicação com o IP de destino 51[.]195[.]68[.]163, que
+também foi consultado no VirusTotal, sem indicação de atividade
+maliciosa nos resultados analisados. Com base nas verificações
+realizadas, classificamos o alerta como <strong>falso positivo</strong>.
+Não foram encontrados indícios de comprometimento do dispositivo durante
+esta análise.</p>
+<figure class="report-shot" data-evidence="9"><a href="images/e14d25a4-009.webp" target="_blank" rel="noopener" aria-label="Ampliar: Revisão da classificação do chamado."><img src="images/e14d25a4-009.webp" width="542" height="300" loading="lazy" decoding="async" alt="Revisão da classificação do chamado."></a><figcaption>Revisão da classificação do chamado.</figcaption></figure>
+</section>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc109-emotet-malware-detected/index.html"><span aria-hidden="true">←</span> Anterior: SOC109</a><a href="../detected-suspicious-xls-file/index.html"><span aria-hidden="true">→</span> Próximo: SOC138</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

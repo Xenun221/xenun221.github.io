@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Triagem de um alerta gerado por uma solicitação web com um padrão associado a comandos.">
+  <title>SOC167 · LS Command Detected in Requested URL | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Ataques Web</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC167 · LS Command Detected in Requested URL</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Ataques Web</dd></div><div><dt>Caso</dt><dd>SOC167</dd></div><div><dt>Registro</dt><dd>Sem indícios maliciosos</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Triagem de um alerta gerado por uma solicitação web com um padrão associado a comandos.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="registro-do-alerta" class="level3">
+<h3>1. Registro do alerta</h3>
+<p>Ticket registrado.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/f09f2887-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro do alerta no Monitoring."><img src="images/f09f2887-001.webp" width="1440" height="241" loading="lazy" decoding="async" alt="Registro do alerta no Monitoring."></a><figcaption>Registro do alerta no Monitoring.</figcaption></figure>
+</section>
+<section id="busca-e-reputação-da-origem" class="level3">
+<h3>2. Busca e reputação da origem</h3>
+<p>IP 188.114.96.15 consultado no Log Management.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/f09f2887-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Busca no Log Management pelo endereço identificado."><img src="images/f09f2887-002.webp" width="1440" height="237" loading="lazy" decoding="async" alt="Busca no Log Management pelo endereço identificado."></a><figcaption>Busca no Log Management pelo endereço identificado.</figcaption></figure>
+<p>IP 188.114.96.15 consultado no VirusTotal.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/f09f2887-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta de reputação da origem do tráfego."><img src="images/f09f2887-003.webp" width="1440" height="766" loading="lazy" decoding="async" alt="Consulta de reputação da origem do tráfego."></a><figcaption>Consulta de reputação da origem do tráfego.</figcaption></figure>
+<p>O VirusTotal classificou o IP como limpo.</p>
+</section>
+<section id="verificação-do-endpoint" class="level3">
+<h3>3. Verificação do endpoint</h3>
+<p>IP 172.16.17.46 verificado no Endpoint Security.</p>
+<figure class="report-shot" data-evidence="4"><a href="images/f09f2887-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta do host no Endpoint Security."><img src="images/f09f2887-004.webp" width="1440" height="400" loading="lazy" decoding="async" alt="Consulta do host no Endpoint Security."></a><figcaption>Consulta do host no Endpoint Security.</figcaption></figure>
+<p>Não foram identificadas ações maliciosas.</p>
+</section>
+<section id="relatório-e-conclusão" class="level3">
+<h3>4. Relatório e conclusão</h3>
+<p>Relatório</p>
+<figure class="report-shot" data-evidence="5"><a href="images/f09f2887-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Avaliação da natureza do tráfego no playbook."><img src="images/f09f2887-005.webp" width="658" height="358" loading="lazy" decoding="async" alt="Avaliação da natureza do tráfego no playbook."></a><figcaption>Avaliação da natureza do tráfego no playbook.</figcaption></figure>
+<figure class="report-shot" data-evidence="6"><a href="images/f09f2887-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Verificação de outras requisições."><img src="images/f09f2887-006.webp" width="679" height="397" loading="lazy" decoding="async" alt="Verificação de outras requisições."></a><figcaption>Verificação de outras requisições.</figcaption></figure>
+<figure class="report-shot" data-evidence="7"><a href="images/f09f2887-007.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa do playbook de classificação do tráfego."><img src="images/f09f2887-007.webp" width="697" height="348" loading="lazy" decoding="async" alt="Etapa do playbook de classificação do tráfego."></a><figcaption>Etapa do playbook de classificação do tráfego.</figcaption></figure>
+<p>Não identificamos ações maliciosas neste caso. O IP 188.114.96.15 foi
+associado a uma máquina virtual da Cloudflare. Também analisamos a
+máquina ELIOTPRD, de onde partiram as solicitações, e não identificamos
+comandos ou acesso a sites suspeitos.</p>
+<figure class="report-shot" data-evidence="8"><a href="images/f09f2887-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Revisão do resultado da investigação."><img src="images/f09f2887-008.webp" width="582" height="249" loading="lazy" decoding="async" alt="Revisão do resultado da investigação."></a><figcaption>Revisão do resultado da investigação.</figcaption></figure>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc168-whoami-command-detected-in-request-body/index.html"><span aria-hidden="true">←</span> Anterior: SOC168</a><a href="../soc169-possible-idor-attack-detected/index.html"><span aria-hidden="true">→</span> Próximo: SOC169</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

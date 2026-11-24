@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Triagem de requisições web suspeitas a partir de um alerta sobre JavaScript na URL.">
+  <title>SOC166 · Código JavaScript detectado na URL solicitada | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Ataques Web</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC166 · Código JavaScript detectado na URL solicitada</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Ataques Web</dd></div><div><dt>Caso</dt><dd>SOC166</dd></div><div><dt>Registro</dt><dd>Comprometimento não confirmado</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Triagem de requisições web suspeitas a partir de um alerta sobre JavaScript na URL.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="abertura-do-ticket-e-definição-dos-objetivos"
+class="level3">
+<h3>1. Abertura do ticket e definição dos objetivos</h3>
+<p>O primeiro passo é abrir o ticket e definir os objetivos da
+investigação.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/66dee2aa-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Identificação da razão do alerta."><img src="images/66dee2aa-001.webp" width="685" height="490" loading="lazy" decoding="async" alt="Identificação da razão do alerta."></a><figcaption>Identificação da razão do alerta.</figcaption></figure>
+<figure class="report-shot" data-evidence="2"><a href="images/66dee2aa-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Campos coletados no início da triagem."><img src="images/66dee2aa-002.webp" width="633" height="424" loading="lazy" decoding="async" alt="Campos coletados no início da triagem."></a><figcaption>Campos coletados no início da triagem.</figcaption></figure>
+</section>
+<section id="busca-inicial-no-log-management" class="level3">
+<h3>2. Busca inicial no Log Management</h3>
+<p>Em seguida, usamos o IP identificado como filtro no Log
+Management.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/66dee2aa-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Detalhes iniciais da regra no Monitoring."><img src="images/66dee2aa-003.webp" width="1440" height="205" loading="lazy" decoding="async" alt="Detalhes iniciais da regra no Monitoring."></a><figcaption>Detalhes iniciais da regra no Monitoring.</figcaption></figure>
+<p>A consulta retornou oito eventos, que serão analisados para
+identificar os destinos e o contexto das conexões.</p>
+<figure class="report-shot" data-evidence="4"><a href="images/66dee2aa-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Pesquisa inicial no Log Management: oito eventos."><img src="images/66dee2aa-004.webp" width="1440" height="214" loading="lazy" decoding="async" alt="Pesquisa inicial no Log Management: oito eventos."></a><figcaption>Pesquisa inicial no Log Management: oito eventos.</figcaption></figure>
+</section>
+<section id="correlação-com-o-endpoint-security" class="level3">
+<h3>3. Correlação com o Endpoint Security</h3>
+<p>Ao analisar os eventos, identificamos o campo
+<code>destination_address</code> e consultamos esse endereço no Endpoint
+Security.</p>
+<p>A pesquisa correlacionou o endereço ao dispositivo
+<code>WebServer1002</code>.</p>
+<figure class="report-shot" data-evidence="6"><a href="images/66dee2aa-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Correlação do destino no Endpoint Security."><img src="images/66dee2aa-006.webp" width="1440" height="285" loading="lazy" decoding="async" alt="Correlação do destino no Endpoint Security."></a><figcaption>Correlação do destino no Endpoint Security.</figcaption></figure>
+</section>
+<section id="análise-do-ip-externo" class="level3">
+<h3>4. Análise do IP externo</h3>
+<p>Voltamos ao Log Management para consultar novamente o IP externo
+112[.]85[.]42[.]13</p>
+<p>A consulta mostrou respostas HTTP 302. O código 302 Found indica um
+redirecionamento; por si só, não comprova atividade maliciosa. É
+necessário avaliar a URL de destino, a sequência de requisições e outros
+indicadores associados.</p>
+</section>
+<section id="reputação-e-informações-de-registro" class="level3">
+<h3>5. Reputação e informações de registro</h3>
+<p>Consultamos o IP no VirusTotal para verificar sua reputação.</p>
+<figure class="report-shot" data-evidence="8"><a href="images/66dee2aa-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta de reputação do endereço de origem."><img src="images/66dee2aa-008.webp" width="1440" height="659" loading="lazy" decoding="async" alt="Consulta de reputação do endereço de origem."></a><figcaption>Consulta de reputação do endereço de origem.</figcaption></figure>
+<p>Na consulta WHOIS, o registro apontou informações associadas à APNIC,
+o registro regional de Internet da região Ásia-Pacífico. Isso não
+identifica, por si só, a organização responsável pelo tráfego.</p>
+<figure class="report-shot" data-evidence="9"><a href="images/66dee2aa-009.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta de informações de registro do endereço externo."><img src="images/66dee2aa-009.webp" width="1028" height="845" loading="lazy" decoding="async" alt="Consulta de informações de registro do endereço externo."></a><figcaption>Consulta de informações de registro do endereço externo.</figcaption></figure>
+<p>Não encontramos informações suficientes sobre o domínio nas consultas
+realizadas; esse dado, isoladamente, não permite concluir que ele seja
+malicioso.</p>
+</section>
+<section id="relatório-e-conclusão" class="level3">
+<h3>6. Relatório e conclusão</h3>
+<figure class="report-shot" data-evidence="10"><a href="images/66dee2aa-010.webp" target="_blank" rel="noopener" aria-label="Ampliar: Avaliação da natureza do tráfego."><img src="images/66dee2aa-010.webp" width="764" height="356" loading="lazy" decoding="async" alt="Avaliação da natureza do tráfego."></a><figcaption>Avaliação da natureza do tráfego.</figcaption></figure>
+<figure class="report-shot" data-evidence="11"><a href="images/66dee2aa-011.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação do vetor investigado."><img src="images/66dee2aa-011.webp" width="630" height="279" loading="lazy" decoding="async" alt="Classificação do vetor investigado."></a><figcaption>Classificação do vetor investigado.</figcaption></figure>
+<figure class="report-shot" data-evidence="12"><a href="images/66dee2aa-012.webp" target="_blank" rel="noopener" aria-label="Ampliar: Verificação de teste agendado."><img src="images/66dee2aa-012.webp" width="658" height="471" loading="lazy" decoding="async" alt="Verificação de teste agendado."></a><figcaption>Verificação de teste agendado.</figcaption></figure>
+<figure class="report-shot" data-evidence="13"><a href="images/66dee2aa-013.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação da direção do tráfego."><img src="images/66dee2aa-013.webp" width="688" height="363" loading="lazy" decoding="async" alt="Classificação da direção do tráfego."></a><figcaption>Classificação da direção do tráfego.</figcaption></figure>
+<figure class="report-shot" data-evidence="14"><a href="images/66dee2aa-014.webp" target="_blank" rel="noopener" aria-label="Ampliar: Critérios de escalonamento."><img src="images/66dee2aa-014.webp" width="647" height="574" loading="lazy" decoding="async" alt="Critérios de escalonamento."></a><figcaption>Critérios de escalonamento.</figcaption></figure>
+<figure class="report-shot" data-evidence="15"><a href="images/66dee2aa-015.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa de avaliação do resultado observado."><img src="images/66dee2aa-015.webp" width="628" height="281" loading="lazy" decoding="async" alt="Etapa de avaliação do resultado observado."></a><figcaption>Etapa de avaliação do resultado observado.</figcaption></figure>
+<figure class="report-shot" data-evidence="16"><a href="images/66dee2aa-016.webp" target="_blank" rel="noopener" aria-label="Ampliar: Revisão antes do encerramento."><img src="images/66dee2aa-016.webp" width="647" height="338" loading="lazy" decoding="async" alt="Revisão antes do encerramento."></a><figcaption>Revisão antes do encerramento.</figcaption></figure>
+<figure class="report-shot" data-evidence="17"><a href="images/66dee2aa-017.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro da avaliação de encaminhamento."><img src="images/66dee2aa-017.webp" width="661" height="617" loading="lazy" decoding="async" alt="Registro da avaliação de encaminhamento."></a><figcaption>Registro da avaliação de encaminhamento.</figcaption></figure>
+<p>Com base nas evidências registradas, o IP
+<code>112[.]85[.]42[.]13</code> realizou requisições suspeitas
+direcionadas ao host interno <code>172.16.17.17</code>, sem evidência de
+sucesso nos dados analisados. As consultas sugerem associação do IP a
+uma organização localizada na China, mas essa atribuição deve ser
+tratada como indicativa e validada com fontes confiáveis. O HTTP 302,
+isoladamente, não confirma um ataque. Recomenda-se preservar os logs,
+validar a URL de destino e revisar os alertas e a atividade observada no
+<code>WebServer1002</code>.</p>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../115-soc165-poss-vel-payload-de-inje-o-sql-detectado/index.html"><span aria-hidden="true">←</span> Anterior: SOC165</a><a href="../soc168-whoami-command-detected-in-request-body/index.html"><span aria-hidden="true">→</span> Próximo: SOC168</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

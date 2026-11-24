@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Exercício de leitura de uma captura de tráfego HTTP no Wireshark.">
+  <title>HTTP Basic Authentication: análise do PCAP | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Desafios</span></div>
+    <article>
+      <header class="case-heading"><h1>HTTP Basic Authentication: análise do PCAP</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Desafios</dd></div><div><dt>Caso</dt><dd>PCAP-01</dd></div><div><dt>Registro</dt><dd>Análise de tráfego</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Exercício de leitura de uma captura de tráfego HTTP no Wireshark.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="resolução-do-desafio-http-basic-authentication"
+class="level3">
+<h3>Resolução do desafio: HTTP Basic Authentication</h3>
+<p>Analisei o arquivo PCAP no Wireshark. Abaixo estão as respostas, com
+o método utilizado e as evidências organizadas por assunto.</p>
+<section id="contagem-de-requisições-http-get" class="level4">
+<h4>1. Contagem de requisições HTTP GET</h4>
+<p><strong>Pergunta:</strong> How many HTTP GET requests are in pcap?
+Apliquei o filtro <code>http.request.method == "GET"</code> no
+Wireshark. O filtro exibiu cinco requisições HTTP GET. <strong>Resposta:
+5 requisições.</strong></p>
+<figure class="report-shot" data-evidence="1"><a href="images/9d88a41b-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Requisições HTTP GET filtradas no Wireshark."><img src="images/9d88a41b-001.webp" width="900" height="187" loading="lazy" decoding="async" alt="Requisições HTTP GET filtradas no Wireshark."></a><figcaption>Requisições HTTP GET filtradas no Wireshark.</figcaption></figure>
+</section>
+<section id="credenciais-de-basic-authentication" class="level4">
+<h4>2. Credenciais de Basic Authentication</h4>
+<p>O cabeçalho <code>Authorization: Basic</code> contém informações
+codificadas em Base64. Base64 não é criptografia; sem TLS, as
+credenciais podem ser expostas numa captura de rede.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/9d88a41b-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Questão do laboratório sobre o usuário de autenticação."><img src="images/9d88a41b-003.webp" width="1184" height="84" loading="lazy" decoding="async" alt="Questão do laboratório sobre o usuário de autenticação."></a><figcaption>Questão do laboratório sobre o usuário de autenticação.</figcaption></figure>
+<figure class="report-shot" data-evidence="5"><a href="images/9d88a41b-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Questão do laboratório sobre a senha de autenticação."><img src="images/9d88a41b-005.webp" width="1213" height="93" loading="lazy" decoding="async" alt="Questão do laboratório sobre a senha de autenticação."></a><figcaption>Questão do laboratório sobre a senha de autenticação.</figcaption></figure>
+</section>
+<section id="user-agent-do-cliente" class="level4">
+<h4>3. User-Agent do cliente</h4>
+<p><strong>Pergunta:</strong> What is the client’s user-agent
+information? Para examinar a conversa, selecionei o pacote no Wireshark
+e usei <strong>Follow → HTTP Stream</strong>. O campo
+<code>User-Agent</code> da requisição identifica o cliente como:
+<strong>Resposta:
+</strong><code>Lynx/2.8.7rel.1 libwww-FM/2.14 SSL-MM/1.4.1 OpenSSL/0.9.8n</code>**</p>
+<figure class="report-shot" data-evidence="6"><a href="images/9d88a41b-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Lista de pacotes na sessão HTTP."><img src="images/9d88a41b-006.webp" width="872" height="176" loading="lazy" decoding="async" alt="Lista de pacotes na sessão HTTP."></a><figcaption>Lista de pacotes na sessão HTTP.</figcaption></figure>
+<figure class="report-shot" data-evidence="8"><a href="images/9d88a41b-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Identificação do User-Agent do cliente."><img src="images/9d88a41b-008.webp" width="1226" height="202" loading="lazy" decoding="async" alt="Identificação do User-Agent do cliente."></a><figcaption>Identificação do User-Agent do cliente.</figcaption></figure>
+</section>
+<section id="identificação-do-servidor" class="level4">
+<h4>4. Identificação do servidor</h4>
+<p>As informações abaixo aparecem no cabeçalho <code>Server</code> da
+resposta HTTP. A versão do OpenSSL é a anunciada pelo servidor; o valor
+<code>OpenSSL/0.9.8n</code> que também aparece no
+<code>User-Agent</code> pertence à identificação do cliente.
+<strong>Pergunta:</strong> What is the version of OpenSSL running on the
+server? <strong>Resposta: OpenSSL
+</strong><code>0.9.8n</code><strong>.</strong>
+<strong>Pergunta:</strong> What is the name and version of the web
+server software? <strong>Resposta: Apache </strong><code>2.2.15</code>**
+(FreeBSD).** O cabeçalho completo informa
+<code>Apache/2.2.15 (FreeBSD) DAV/2 mod_ssl/2.2.15 OpenSSL/0.9.8n</code>.
+<strong>Pergunta:</strong> What is the server operating system?
+<strong>Resposta: FreeBSD</strong>, indicado pelo identificador
+<code>(FreeBSD)</code> no cabeçalho <code>Server</code>.</p>
+<figure class="report-shot" data-evidence="9"><a href="images/9d88a41b-009.webp" target="_blank" rel="noopener" aria-label="Ampliar: Análise do cabeçalho HTTP de resposta."><img src="images/9d88a41b-009.webp" width="932" height="324" loading="lazy" decoding="async" alt="Análise do cabeçalho HTTP de resposta."></a><figcaption>Análise do cabeçalho HTTP de resposta.</figcaption></figure>
+</section>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc145-ransomware-detected/index.html"><span aria-hidden="true">←</span> Anterior: SOC145</a><a href="../desafio01-malicious-doc/index.html"><span aria-hidden="true">→</span> Próximo: DOC-01</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

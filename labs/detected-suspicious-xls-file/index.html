@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Investigação de um alerta de planilha suspeita, com foco no comportamento do endpoint.">
+  <title>SOC138 · Detected Suspicious XLS File | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Malware</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC138 · Detected Suspicious XLS File</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Malware</dd></div><div><dt>Caso</dt><dd>SOC138</dd></div><div><dt>Registro</dt><dd>Host isolado</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Investigação de um alerta de planilha suspeita, com foco no comportamento do endpoint.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="dados-do-alerta" class="level3">
+<h3>Dados do alerta</h3>
+<ul>
+<li><strong>ID do evento:</strong> 77</li>
+<li><strong>Data e hora do evento:</strong> 13/03/2021, às 20h20</li>
+<li><strong>Regra:</strong> SOC138 — Detected Suspicious Xls File</li>
+<li><strong>Tipo de alerta:</strong> Malware</li>
+<li><strong>Técnica MITRE informada:</strong> T1112 — Defense Evasion:
+Modify Registry</li>
+<li><strong>Severidade:</strong> Média</li>
+</ul>
+</section>
+<section id="análise" class="level3">
+<h3>Análise</h3>
+<section id="verificação-do-arquivo" class="level4">
+<h4>1. Verificação do arquivo</h4>
+<p>O primeiro passo foi analisar no VirusTotal o hash MD5
+<code>7ccf88c0bbe3b29bf19d877c4596a8d4</code>. A análise indicou que o
+arquivo era malicioso.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/3be8891c-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Resultado da consulta de reputação da planilha."><img src="images/3be8891c-001.webp" width="1440" height="714" loading="lazy" decoding="async" alt="Resultado da consulta de reputação da planilha."></a><figcaption>Resultado da consulta de reputação da planilha.</figcaption></figure>
+</section>
+<section id="identificação-do-equipamento" class="level4">
+<h4>2. Identificação do equipamento</h4>
+<p>O endereço IP <code>172[.]16[.]17[.]56</code> foi consultado no
+Endpoint, que identificou o computador da Sofia.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/3be8891c-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Identificação do equipamento no Endpoint Security."><img src="images/3be8891c-002.webp" width="1440" height="245" loading="lazy" decoding="async" alt="Identificação do equipamento no Endpoint Security."></a><figcaption>Identificação do equipamento no Endpoint Security.</figcaption></figure>
+</section>
+<section id="análise-do-processo-e-dos-logs" class="level4">
+<h4>3. Análise do processo e dos logs</h4>
+<p>Foi identificado um processo suspeito do PowerShell em execução. O
+comando encontrado estava ofuscado e foi decodificado para análise. O
+endereço IP do equipamento também foi consultado no Log Management para
+análise dos registros.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/3be8891c-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Conexões observadas no gerenciamento de logs."><img src="images/3be8891c-003.webp" width="1440" height="73" loading="lazy" decoding="async" alt="Conexões observadas no gerenciamento de logs."></a><figcaption>Conexões observadas no gerenciamento de logs.</figcaption></figure>
+<p>Após a decodificação do comando e a análise dos logs, identificamos
+que o script tentava baixar um arquivo malicioso a partir do endereço
+<code>[URL omitida]</code>. O endereço foi verificado no VirusTotal e
+classificado como malicioso. Os endereços IP
+<code>177[.]53[.]143[.]89</code> e <code>35[.]189[.]10[.]17</code> foram
+consultados no AbuseIPDB e apresentaram pontuação de risco zero. Apesar
+disso, considerando os demais indicadores, a máquina foi isolada para
+investigação.</p>
+<figure class="report-shot" data-evidence="4"><a href="images/3be8891c-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Estado de contenção registrado no Endpoint Security."><img src="images/3be8891c-004.webp" width="1440" height="256" loading="lazy" decoding="async" alt="Estado de contenção registrado no Endpoint Security."></a><figcaption>Estado de contenção registrado no Endpoint Security.</figcaption></figure>
+</section>
+</section>
+<section id="relatório" class="level3">
+<h3>Relatório</h3>
+<figure class="report-shot" data-evidence="5"><a href="images/3be8891c-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação do indicador no playbook."><img src="images/3be8891c-005.webp" width="733" height="286" loading="lazy" decoding="async" alt="Classificação do indicador no playbook."></a><figcaption>Classificação do indicador no playbook.</figcaption></figure>
+<figure class="report-shot" data-evidence="6"><a href="images/3be8891c-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa de verificação da reputação."><img src="images/3be8891c-006.webp" width="574" height="357" loading="lazy" decoding="async" alt="Etapa de verificação da reputação."></a><figcaption>Etapa de verificação da reputação.</figcaption></figure>
+<figure class="report-shot" data-evidence="7"><a href="images/3be8891c-007.webp" target="_blank" rel="noopener" aria-label="Ampliar: Verificação do estado de quarentena."><img src="images/3be8891c-007.webp" width="499" height="322" loading="lazy" decoding="async" alt="Verificação do estado de quarentena."></a><figcaption>Verificação do estado de quarentena.</figcaption></figure>
+<section id="resumo" class="level4">
+<h4>Resumo</h4>
+<p>A análise identificou o hash MD5
+<code>7ccf88c0bbe3b29bf19d877c4596a8d4</code>, associado a um arquivo
+malicioso e verificado no VirusTotal. Os logs do proxy indicaram que o
+host da Sofia (<code>172[.]16[.]17[.]56</code>) acessou o endereço
+malicioso <code>[URL omitida]</code> em 19/10/2020, às 16h17min38s.
+Também foi identificado um comando PowerShell ofuscado que tentava
+baixar um executável de várias URLs. A técnica MITRE informada no alerta
+é T1112 (Modify Registry), associada à tática Defense Evasion. A máquina
+foi colocada em quarentena para investigação adicional.</p>
+<figure class="report-shot" data-evidence="9"><a href="images/3be8891c-009.webp" target="_blank" rel="noopener" aria-label="Ampliar: Revisão do resultado antes de encerrar."><img src="images/3be8891c-009.webp" width="620" height="305" loading="lazy" decoding="async" alt="Revisão do resultado antes de encerrar."></a><figcaption>Revisão do resultado antes de encerrar.</figcaption></figure>
+</section>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc119-proxy-malicious-executable-file-detected/index.html"><span aria-hidden="true">←</span> Anterior: SOC119</a><a href="../soc145-ransomware-detected/index.html"><span aria-hidden="true">→</span> Próximo: SOC145</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

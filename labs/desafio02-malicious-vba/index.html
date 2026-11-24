@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Análise de uma macro encontrada em um documento anexado a uma mensagem sobre fatura.">
+  <title>Malicious VBA | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Desafios</span></div>
+    <article>
+      <header class="case-heading"><h1>Malicious VBA</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Desafios</dd></div><div><dt>Caso</dt><dd>VBA-02</dd></div><div><dt>Registro</dt><dd>Análise estática</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Análise de uma macro encontrada em um documento anexado a uma mensagem sobre fatura.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="enunciado" class="level3">
+<h3>Enunciado</h3>
+<p>Um funcionário recebeu um documento suspeito anexado a uma mensagem
+sobre fatura. A análise estática identificou comportamento de rede,
+gravação de arquivos e interação com processos. &gt; <strong>Cuidados de
+segurança:</strong> analise o arquivo como texto no Notepad++ ou em
+outra ferramenta segura. Não execute a macro fora de um ambiente
+isolado. <strong>Arquivo analisado:</strong>
+<code>/root/Desktop/ChallengeFiles/invoice.vb</code> <strong>Desafio
+preparado por:</strong> <span class="citation"
+data-cites="RussianPanda">@RussianPanda</span></p>
+</section>
+<section id="procedimento-de-análise" class="level3">
+<h3>Procedimento de análise</h3>
+<ol type="1">
+<li>Abri o arquivo como texto e localizei trechos codificados em
+hexadecimal na macro.</li>
+<li>Usei o CyberChef para decodificar os valores e reconstruir as
+strings.</li>
+<li>Consultei o arquivo no Hybrid Analysis e pesquisei o hash no
+VirusTotal. <strong>Hash SHA-256:</strong>
+<code>a9e02a6c316b3d7659b48621015d504820337f1f88dd588b75597db95750d16e</code></li>
+</ol>
+<figure class="report-shot" data-evidence="1"><a href="images/fc93f069-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Visão geral da análise e dos metadados do arquivo."><img src="images/fc93f069-001.webp" width="1440" height="351" loading="lazy" decoding="async" alt="Visão geral da análise e dos metadados do arquivo."></a><figcaption>Visão geral da análise e dos metadados do arquivo.</figcaption></figure>
+</section>
+<section id="respostas-do-desafio" class="level3">
+<h3>Respostas do desafio</h3>
+<section id="comunicação-externa" class="level4">
+<h4>1. Comunicação externa</h4>
+</section>
+<section id="artefato-gravado" class="level4">
+<h4>2. Artefato gravado</h4>
+<p><strong>Artefato observado:</strong> <code>dropped.exe</code>.</p>
+</section>
+<section id="qual-objeto-é-usado-para-estabelecer-a-conexão-http"
+class="level4">
+<h4>3. Qual objeto é usado para estabelecer a conexão HTTP?</h4>
+<p><strong>Resposta:</strong> <code>MSXML2.ServerXMLHTTP</code></p>
+</section>
+<section id="qual-user-agent-é-enviado" class="level4">
+<h4>4. Qual User-Agent é enviado?</h4>
+<p><strong>Resposta:</strong> o método é <code>GET</code> e o User-Agent
+é <code>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)</code>.</p>
+</section>
+<section
+id="qual-objeto-permite-ler-ou-gravar-arquivos-de-texto-e-binários"
+class="level4">
+<h4>5. Qual objeto permite ler ou gravar arquivos de texto e
+binários?</h4>
+<p><strong>Resultado:</strong> a amostra apresentava indícios de
+manipulação de arquivos.</p>
+</section>
+<section id="atividade-sobre-processos" class="level4">
+<h4>6. Atividade sobre processos</h4>
+<p><strong>Resultado:</strong> a macro fazia referência a uma interface
+associada à atividade de processos do Windows.</p>
+</section>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../desafio01-malicious-doc/index.html"><span aria-hidden="true">←</span> Anterior: DOC-01</a><a href="../desafio03-remote-working/index.html"><span aria-hidden="true">→</span> Próximo: DOC-03</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

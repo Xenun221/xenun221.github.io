@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Triagem de possível falha de controle de acesso a objetos em um servidor web.">
+  <title>SOC169 · Possible IDOR Attack Detected | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Ataques Web</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC169 · Possible IDOR Attack Detected</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Ataques Web</dd></div><div><dt>Caso</dt><dd>SOC169</dd></div><div><dt>Registro</dt><dd>Encaminhamento ao N2</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Triagem de possível falha de controle de acesso a objetos em um servidor web.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="registro-do-incidente" class="level3">
+<h3>Registro do incidente</h3>
+<p>Ticket aberto para investigação de possível ataque IDOR.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/bfbd134b-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Alerta no Monitoring e dados iniciais."><img src="images/bfbd134b-001.webp" width="1440" height="194" loading="lazy" decoding="async" alt="Alerta no Monitoring e dados iniciais."></a><figcaption>Alerta no Monitoring e dados iniciais.</figcaption></figure>
+</section>
+<section id="investigação" class="level3">
+<h3>Investigação</h3>
+<section id="análise-do-ip-externo" class="level4">
+<h4>Análise do IP externo</h4>
+<p>O endereço IP <strong>134.209.118.137</strong> foi consultado no
+VirusTotal, que retornou uma indicação de atividade maliciosa. O IP está
+associado à DigitalOcean.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/bfbd134b-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Reputação do endereço externo na análise."><img src="images/bfbd134b-002.webp" width="1440" height="629" loading="lazy" decoding="async" alt="Reputação do endereço externo na análise."></a><figcaption>Reputação do endereço externo na análise.</figcaption></figure>
+</section>
+<section id="identificação-do-host-interno" class="level4">
+<h4>Identificação do host interno</h4>
+<p>O IP interno <strong>172.16.17.15</strong> foi consultado no Endpoint
+Security e associado à máquina <strong>WebServer1005</strong>. Na
+verificação do host, não foram identificados arquivos suspeitos; foram
+encontrados apenas arquivos considerados normais.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/bfbd134b-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Identificação do servidor no Endpoint Security."><img src="images/bfbd134b-003.webp" width="1177" height="764" loading="lazy" decoding="async" alt="Identificação do servidor no Endpoint Security."></a><figcaption>Identificação do servidor no Endpoint Security.</figcaption></figure>
+</section>
+<section id="análise-dos-logs" class="level4">
+<h4>Análise dos logs</h4>
+<p>Os registros foram analisados no Log Management, com foco nas
+requisições originadas pelo IP <strong>134.209.118.137</strong> e em
+seus respectivos códigos de status.</p>
+<figure class="report-shot" data-evidence="4"><a href="images/bfbd134b-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta dos registros no Log Management."><img src="images/bfbd134b-004.webp" width="1440" height="110" loading="lazy" decoding="async" alt="Consulta dos registros no Log Management."></a><figcaption>Consulta dos registros no Log Management.</figcaption></figure>
+<p>Os registros consultados apresentaram respostas HTTP
+<strong>200</strong> para as requisições verificadas. Esse código indica
+que as requisições foram processadas com sucesso; isoladamente, porém,
+não confirma a exploração de uma vulnerabilidade IDOR.</p>
+<figure class="report-shot" data-evidence="5"><a href="images/bfbd134b-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa de avaliação da natureza do tráfego."><img src="images/bfbd134b-005.webp" width="776" height="360" loading="lazy" decoding="async" alt="Etapa de avaliação da natureza do tráfego."></a><figcaption>Etapa de avaliação da natureza do tráfego.</figcaption></figure>
+<figure class="report-shot" data-evidence="6"><a href="images/bfbd134b-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação do tipo de alerta."><img src="images/bfbd134b-006.webp" width="738" height="300" loading="lazy" decoding="async" alt="Classificação do tipo de alerta."></a><figcaption>Classificação do tipo de alerta.</figcaption></figure>
+<figure class="report-shot" data-evidence="7"><a href="images/bfbd134b-007.webp" target="_blank" rel="noopener" aria-label="Ampliar: Avaliação da direção do tráfego."><img src="images/bfbd134b-007.webp" width="635" height="320" loading="lazy" decoding="async" alt="Avaliação da direção do tráfego."></a><figcaption>Avaliação da direção do tráfego.</figcaption></figure>
+<figure class="report-shot" data-evidence="8"><a href="images/bfbd134b-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa de verificação de teste agendado."><img src="images/bfbd134b-008.webp" width="767" height="431" loading="lazy" decoding="async" alt="Etapa de verificação de teste agendado."></a><figcaption>Etapa de verificação de teste agendado.</figcaption></figure>
+<figure class="report-shot" data-evidence="9"><a href="images/bfbd134b-009.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro complementar sobre o fluxo."><img src="images/bfbd134b-009.webp" width="656" height="318" loading="lazy" decoding="async" alt="Registro complementar sobre o fluxo."></a><figcaption>Registro complementar sobre o fluxo.</figcaption></figure>
+<figure class="report-shot" data-evidence="11"><a href="images/bfbd134b-011.webp" target="_blank" rel="noopener" aria-label="Ampliar: Critérios de encaminhamento para a equipe N2."><img src="images/bfbd134b-011.webp" width="678" height="475" loading="lazy" decoding="async" alt="Critérios de encaminhamento para a equipe N2."></a><figcaption>Critérios de encaminhamento para a equipe N2.</figcaption></figure>
+</section>
+</section>
+<section id="conclusão-e-encaminhamento" class="level3">
+<h3>Conclusão e encaminhamento</h3>
+<p>O IP <strong>134.209.118.137</strong> realizou requisições à máquina
+<strong>WebServer1005</strong>, e as requisições analisadas retornaram
+respostas HTTP 200. Embora o VirusTotal tenha sinalizado o IP como
+malicioso, a verificação realizada no host não identificou arquivos
+suspeitos. O caso será encaminhado aos analistas <strong>N2</strong>
+para aprofundamento e conclusão.</p>
+<figure class="report-shot" data-evidence="12"><a href="images/bfbd134b-012.webp" target="_blank" rel="noopener" aria-label="Ampliar: Revisão antes de encerrar o chamado."><img src="images/bfbd134b-012.webp" width="729" height="304" loading="lazy" decoding="async" alt="Revisão antes de encerrar o chamado."></a><figcaption>Revisão antes de encerrar o chamado.</figcaption></figure>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc167-ls-command-detected-in-requested-url/index.html"><span aria-hidden="true">←</span> Anterior: SOC167</a><a href="../soc170-passwd-found-in-requested-url-possible-lfi-attack/index.html"><span aria-hidden="true">→</span> Próximo: SOC170</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Exercício de investigação retrospectiva a partir de logs de um servidor web.">
+  <title>Investigate Web Attack | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Ataques Web</span></div>
+    <article>
+      <header class="case-heading"><h1>Investigate Web Attack</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Ataques Web</dd></div><div><dt>Caso</dt><dd>WEB-01</dd></div><div><dt>Registro</dt><dd>Em revisão</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Exercício de investigação retrospectiva a partir de logs de um servidor web.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="reconhecimento-automatizado" class="level3">
+<h3>1. Reconhecimento automatizado</h3>
+<figure class="report-shot" data-evidence="1"><a href="images/059ed2eb-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro da hipótese de reconhecimento automatizado."><img src="images/059ed2eb-001.webp" width="1226" height="137" loading="lazy" decoding="async" alt="Registro da hipótese de reconhecimento automatizado."></a><figcaption>Registro da hipótese de reconhecimento automatizado.</figcaption></figure>
+<figure class="report-shot" data-evidence="2"><a href="images/059ed2eb-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Trecho do registro analisado para reconhecimento automatizado."><img src="images/059ed2eb-002.webp" width="1109" height="57" loading="lazy" decoding="async" alt="Trecho do registro analisado para reconhecimento automatizado."></a><figcaption>Trecho do registro analisado para reconhecimento automatizado.</figcaption></figure>
+<p>Os registros mostraram atividade compatível com reconhecimento
+automatizado. A hipótese anotada foi o uso de Nikto. O exercício está
+marcado para revisão.</p>
+</section>
+<section id="indícios-de-persistência" class="level3">
+<h3>2. Indícios de persistência</h3>
+<p>Também procurei indícios de persistência na máquina investigada. O
+último registro levantou uma hipótese de persistência, mas não confirmou
+que a ação ocorreu no host.</p>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc170-passwd-found-in-requested-url-possible-lfi-attack/index.html"><span aria-hidden="true">←</span> Anterior: SOC170</a><a href="../soc104-malware-detected/index.html"><span aria-hidden="true">→</span> Próximo: SOC104-36</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

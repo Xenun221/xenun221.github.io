@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Estudo de documentos de Office associados à vulnerabilidade de MSHTML de 2021.">
+  <title>MSHTML | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Desafios</span></div>
+    <article>
+      <header class="case-heading"><h1>MSHTML</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Desafios</dd></div><div><dt>Caso</dt><dd>DOC-05</dd></div><div><dt>Registro</dt><dd>Análise documental</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Estudo de documentos de Office associados à vulnerabilidade de MSHTML de 2021.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="contexto" class="level3">
+<h3>Contexto</h3>
+<p>O exercício compara documentos associados a uma vulnerabilidade do
+MSHTML documentada em 2021.</p>
+</section>
+<section id="arquivos-analisados" class="level3">
+<h3>Arquivos analisados</h3>
+<ul>
+<li><code>Employee_W2_Form.docx</code> —
+<code>/root/Desktop/ChallengeFiles/Employee_W2_Form.docx</code></li>
+<li><code>Employees_Contact_Audit_Oct_2021.docx</code> —
+<code>/root/Desktop/ChallengeFiles/Employees_Contact_Audit_Oct_2021.docx</code></li>
+<li><code>Work_From_Home_Survey.doc</code> —
+<code>/root/Desktop/ChallengeFiles/Work_From_Home_Survey.doc</code></li>
+<li><code>income_tax_and_benefit_return_2021.docx</code> —
+<code>/root/Desktop/ChallengeFiles/income_tax_and_benefit_return_2021.docx</code></li>
+</ul>
+</section>
+<section id="análises-e-respostas" class="level3">
+<h3>Análises e respostas</h3>
+<section id="employees_contact_audit_oct_2021.docx" class="level4">
+<h4><code>Employees_Contact_Audit_Oct_2021.docx</code></h4>
+<p><strong>Pergunta:</strong> Qual é o IP malicioso presente no arquivo?
+<strong>Método:</strong> Extraí o arquivo no VirusTotal e consultei a
+seção <strong>Relations</strong>.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/1df2ba22-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Resultado da análise de reputação de um dos documentos do desafio."><img src="images/1df2ba22-001.webp" width="1440" height="147" loading="lazy" decoding="async" alt="Resultado da análise de reputação de um dos documentos do desafio."></a><figcaption>Resultado da análise de reputação de um dos documentos do desafio.</figcaption></figure>
+</section>
+<section id="employee_w2_form.docx" class="level4">
+<h4><code>Employee_W2_Form.docx</code></h4>
+<p><strong>Pergunta:</strong> Qual é o domínio malicioso presente no
+arquivo? <strong>Método:</strong> Enviei o arquivo ao FileScan e
+consultei o resultado da análise.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/1df2ba22-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação do documento no FileScan."><img src="images/1df2ba22-002.webp" width="1440" height="175" loading="lazy" decoding="async" alt="Classificação do documento no FileScan."></a><figcaption>Classificação do documento no FileScan.</figcaption></figure>
+</section>
+<section id="work_from_home_survey.doc" class="level4">
+<h4><code>Work_From_Home_Survey.doc</code></h4>
+<p><strong>Pergunta:</strong> Qual é o domínio malicioso presente no
+arquivo? <strong>Método:</strong> Analisei o arquivo no Hybrid Analysis,
+consultei uma sandbox e verifiquei o IP associado ao domínio.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/1df2ba22-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Seção de atividade de rede no Hybrid Analysis."><img src="images/1df2ba22-003.webp" width="1440" height="225" loading="lazy" decoding="async" alt="Seção de atividade de rede no Hybrid Analysis."></a><figcaption>Seção de atividade de rede no Hybrid Analysis.</figcaption></figure>
+</section>
+<section id="income_tax_and_benefit_return_2021.docx" class="level4">
+<h4><code>income_tax_and_benefit_return_2021.docx</code></h4>
+<p><strong>Pergunta:</strong> Qual é o domínio malicioso presente no
+arquivo? <strong>Resultado:</strong> o relatório associou a amostra a um
+domínio externo suspeito.</p>
+<figure class="report-shot" data-evidence="4"><a href="images/1df2ba22-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Seção de DNS no relatório de análise."><img src="images/1df2ba22-004.webp" width="1440" height="193" loading="lazy" decoding="async" alt="Seção de DNS no relatório de análise."></a><figcaption>Seção de DNS no relatório de análise.</figcaption></figure>
+</section>
+</section>
+<section id="vulnerabilidade-explorada" class="level3">
+<h3>Vulnerabilidade explorada</h3>
+<p><strong>Pergunta:</strong> Qual vulnerabilidade foi explorada pelos
+arquivos? <strong>Resposta:</strong> CVE-2021-40444. Identifiquei a CVE
+em comum ao analisar os arquivos no VirusTotal.</p>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../desafio-excel-4-0-macros/index.html"><span aria-hidden="true">←</span> Anterior: XLM-04</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

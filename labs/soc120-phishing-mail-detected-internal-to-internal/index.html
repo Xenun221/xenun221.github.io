@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Triagem de um alerta de e-mail entre remetente e destinatário internos.">
+  <title>SOC120 · Phishing Mail Detected: Internal to Internal | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Phishing</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC120 · Phishing Mail Detected: Internal to Internal</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Phishing</dd></div><div><dt>Caso</dt><dd>SOC120</dd></div><div><dt>Registro</dt><dd>Falso positivo</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Triagem de um alerta de e-mail entre remetente e destinatário internos.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="abertura-do-chamado" class="level3">
+<h3>1. Abertura do chamado</h3>
+<p>Como de inicio ja encontramos a tarefa no Monitoring e clicamos em
+“Investigation Channel”. e ja abrimos o ticket</p>
+<figure class="report-shot" data-evidence="1"><a href="images/13d45a0a-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro inicial do alerta de e-mail interno."><img src="images/13d45a0a-001.webp" width="1440" height="300" loading="lazy" decoding="async" alt="Registro inicial do alerta de e-mail interno."></a><figcaption>Registro inicial do alerta de e-mail interno.</figcaption></figure>
+</section>
+<section id="busca-no-email-security" class="level3">
+<h3>2. Busca no Email Security</h3>
+<p>Filtramos pelo Email Security:</p>
+<figure class="report-shot" data-evidence="2"><a href="images/13d45a0a-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Painel de Email Security com a busca da investigação."><img src="images/13d45a0a-002.webp" width="1440" height="206" loading="lazy" decoding="async" alt="Painel de Email Security com a busca da investigação."></a><figcaption>Painel de Email Security com a busca da investigação.</figcaption></figure>
+</section>
+<section id="revisão-da-mensagem" class="level3">
+<h3>3. Revisão da mensagem</h3>
+<p>Verificamos o conteudo dentro do email e esta normal, apenas uma
+mensagem</p>
+<figure class="report-shot" data-evidence="3"><a href="images/13d45a0a-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Mensagem revisada no Email Security."><img src="images/13d45a0a-003.webp" width="1440" height="185" loading="lazy" decoding="async" alt="Mensagem revisada no Email Security."></a><figcaption>Mensagem revisada no Email Security.</figcaption></figure>
+<p>E colocamos que não e malicioso pois não tem nenhuma atividade fora
+do comum ou seja e um falso positivo</p>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc140-phishing-mail-detected-suspicious-task-scheduler/index.html"><span aria-hidden="true">←</span> Anterior: SOC140</a><a href="../115-soc165-poss-vel-payload-de-inje-o-sql-detectado/index.html"><span aria-hidden="true">→</span> Próximo: SOC165</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

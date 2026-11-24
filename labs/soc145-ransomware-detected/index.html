@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Triagem de um incidente de ransomware com atividade suspeita em um host monitorado.">
+  <title>SOC145 · Ransomware Detected | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Malware</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC145 · Ransomware Detected</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Malware</dd></div><div><dt>Caso</dt><dd>SOC145</dd></div><div><dt>Registro</dt><dd>Verdadeiro positivo</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Triagem de um incidente de ransomware com atividade suspeita em um host monitorado.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="triagem-inicial" class="level3">
+<h3>Triagem inicial</h3>
+<p>O primeiro passo foi abrir o chamado.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/5410e661-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Abertura do chamado referente ao evento 92."><img src="images/5410e661-001.webp" width="1440" height="492" loading="lazy" decoding="async" alt="Abertura do chamado referente ao evento 92."></a><figcaption>Abertura do chamado referente ao evento 92.</figcaption></figure>
+<p>Durante a triagem, identificamos o IP
+<code>172[.]16[.]17[.]88</code>, associado ao host
+<strong>MarkPRD</strong>. No Endpoint Security, analisamos a seção de
+processos e observamos atividade suspeita.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/5410e661-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Identificação do equipamento investigado."><img src="images/5410e661-002.webp" width="1440" height="256" loading="lazy" decoding="async" alt="Identificação do equipamento investigado."></a><figcaption>Identificação do equipamento investigado.</figcaption></figure>
+</section>
+<section id="análise-dos-arquivos" class="level3">
+<h3>Análise dos arquivos</h3>
+<p>Enviamos o hash <code>0b486fe0503524cfe4726a4022fa6a68</code> ao
+VirusTotal e ao Hybrid Analysis. A análise indicou que o arquivo era
+malicioso.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/5410e661-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Resultado da análise de reputação do artefato associado ao ransomware."><img src="images/5410e661-003.webp" width="1440" height="748" loading="lazy" decoding="async" alt="Resultado da análise de reputação do artefato associado ao ransomware."></a><figcaption>Resultado da análise de reputação do artefato associado ao ransomware.</figcaption></figure>
+<figure class="report-shot" data-evidence="4"><a href="images/5410e661-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação da amostra no Hybrid Analysis."><img src="images/5410e661-004.webp" width="1440" height="377" loading="lazy" decoding="async" alt="Classificação da amostra no Hybrid Analysis."></a><figcaption>Classificação da amostra no Hybrid Analysis.</figcaption></figure>
+</section>
+<section id="consulta-aos-registros" class="level3">
+<h3>Consulta aos registros</h3>
+<p>Consultamos o IP <code>172[.]16[.]17[.]88</code> no Log Management
+para aprofundar a análise, mas os resultados não foram conclusivos.</p>
+<figure class="report-shot" data-evidence="5"><a href="images/5410e661-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Conexões consultadas no Log Management."><img src="images/5410e661-005.webp" width="1440" height="303" loading="lazy" decoding="async" alt="Conexões consultadas no Log Management."></a><figcaption>Conexões consultadas no Log Management.</figcaption></figure>
+</section>
+<section id="resumo-da-análise" class="level3">
+<h3>Resumo da análise</h3>
+<p>Também analisamos o hash
+<code>1228d0f04f0ba82569fc1c0609f9fd6c377a91b9ea44c1e7f9f84b2b90552da2</code>
+no VirusTotal e no Hybrid Analysis. O arquivo <code>ab.exe</code> foi
+classificado como malicioso, com 61 de 71 detecções, e associado à
+família de ransomware <strong>Avaddon</strong>. O arquivo foi
+identificado no host <code>172[.]16[.]17[.]88</code>, associado ao
+usuário <strong>MarkPRD</strong>. <strong>Pendente de
+confirmação:</strong> verificar nos registros se a execução ou a
+comunicação foi confirmada; caso contrário, registrar que não foi
+possível confirmá-la. O host foi isolado no EDR. A conclusão registrada
+foi <strong>True Positive</strong>.</p>
+<section id="evidências" class="level4">
+<h4>Evidências</h4>
+<figure class="report-shot" data-evidence="6"><a href="images/5410e661-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Seleção do indicador de ameaça no playbook."><img src="images/5410e661-006.webp" width="939" height="357" loading="lazy" decoding="async" alt="Seleção do indicador de ameaça no playbook."></a><figcaption>Seleção do indicador de ameaça no playbook.</figcaption></figure>
+<figure class="report-shot" data-evidence="7"><a href="images/5410e661-007.webp" target="_blank" rel="noopener" aria-label="Ampliar: Verificação de quarentena."><img src="images/5410e661-007.webp" width="680" height="349" loading="lazy" decoding="async" alt="Verificação de quarentena."></a><figcaption>Verificação de quarentena.</figcaption></figure>
+<figure class="report-shot" data-evidence="8"><a href="images/5410e661-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa de análise da amostra."><img src="images/5410e661-008.webp" width="653" height="418" loading="lazy" decoding="async" alt="Etapa de análise da amostra."></a><figcaption>Etapa de análise da amostra.</figcaption></figure>
+<figure class="report-shot" data-evidence="9"><a href="images/5410e661-009.webp" target="_blank" rel="noopener" aria-label="Ampliar: Verificação de comunicação nos logs."><img src="images/5410e661-009.webp" width="693" height="349" loading="lazy" decoding="async" alt="Verificação de comunicação nos logs."></a><figcaption>Verificação de comunicação nos logs.</figcaption></figure>
+<figure class="report-shot" data-evidence="10"><a href="images/5410e661-010.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro dos indicadores no playbook."><img src="images/5410e661-010.webp" width="706" height="440" loading="lazy" decoding="async" alt="Registro dos indicadores no playbook."></a><figcaption>Registro dos indicadores no playbook.</figcaption></figure>
+</section>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../detected-suspicious-xls-file/index.html"><span aria-hidden="true">←</span> Anterior: SOC138</a><a href="../http-basic-authentication-an-lise-do-pcap/index.html"><span aria-hidden="true">→</span> Próximo: PCAP-01</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

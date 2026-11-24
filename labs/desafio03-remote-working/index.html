@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Investigação de um documento suspeito em um cenário simulado de trabalho remoto.">
+  <title>Remote Working | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Desafios</span></div>
+    <article>
+      <header class="case-heading"><h1>Remote Working</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Desafios</dd></div><div><dt>Caso</dt><dd>DOC-03</dd></div><div><dt>Registro</dt><dd>Análise de artefatos</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Investigação de um documento suspeito em um cenário simulado de trabalho remoto.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="arquivo-analisado" class="level3">
+<h3>Arquivo analisado</h3>
+<p><strong>Arquivo:</strong>
+<code>/root/Desktop/ChallengeFiles/ORDER_SHEET_SPEC.zip</code></p>
+</section>
+<section id="análise-e-evidências" class="level3">
+<h3>Análise e evidências</h3>
+<p>Extraímos o arquivo e analisamos a planilha XLSX no VirusTotal,
+Hybrid Analysis e ANY.RUN.</p>
+<section id="nome-detectado-pelo-bitdefender" class="level4">
+<h4>1. Nome detectado pelo Bitdefender</h4>
+<p><strong>With what name is the file detected by Bitdefender
+antivirus?</strong> No VirusTotal, verificamos o nome atribuído ao
+malware pelo Bitdefender.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/825df595-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação da amostra pelas ferramentas de segurança."><img src="images/825df595-001.webp" width="1440" height="566" loading="lazy" decoding="async" alt="Classificação da amostra pelas ferramentas de segurança."></a><figcaption>Classificação da amostra pelas ferramentas de segurança.</figcaption></figure>
+</section>
+<section id="data-de-criação-do-arquivo" class="level4">
+<h4>2. Data de criação do arquivo</h4>
+<p><strong>What is the date the file was created? (UTC) Answer format:
+YYYY-MM-DD HH:MM:SS</strong> Nos detalhes do arquivo, verificamos a data
+de criação.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/825df595-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Metadados do documento no relatório de análise."><img src="images/825df595-002.webp" width="1287" height="577" loading="lazy" decoding="async" alt="Metadados do documento no relatório de análise."></a><figcaption>Metadados do documento no relatório de análise.</figcaption></figure>
+</section>
+<section id="quantidade-de-arquivos-gravados-no-disco" class="level4">
+<h4>3. Quantidade de arquivos gravados no disco</h4>
+<p><strong>How many files are dropped on the disk?</strong></p>
+<figure class="report-shot" data-evidence="3"><a href="images/825df595-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Resumo da classificação do documento."><img src="images/825df595-003.webp" width="1440" height="221" loading="lazy" decoding="async" alt="Resumo da classificação do documento."></a><figcaption>Resumo da classificação do documento.</figcaption></figure>
+</section>
+<section id="hash-sha-256-do-arquivo-emf" class="level4">
+<h4>4. Hash SHA-256 do arquivo EMF</h4>
+<p><strong>What is the SHA-256 hash of the dropped EMF file?</strong>
+Nesse caso, consultamos a análise em sandbox do Hybrid Analysis, que
+forneceu o seguinte resultado:
+979dde2aed02f077c16ae53546c6df9eed40e8386d6db6fc36aee9f966d2cb82</p>
+<figure class="report-shot" data-evidence="4"><a href="images/825df595-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Painel de atividade e artefatos na análise dinâmica."><img src="images/825df595-004.webp" width="1440" height="169" loading="lazy" decoding="async" alt="Painel de atividade e artefatos na análise dinâmica."></a><figcaption>Painel de atividade e artefatos na análise dinâmica.</figcaption></figure>
+</section>
+<section id="indicador-observado-no-tráfego" class="level4">
+<h4>5. Indicador observado no tráfego</h4>
+<p>A seção <strong>Relations</strong> do VirusTotal mostrou comunicação
+externa associada ao artefato.</p>
+<figure class="report-shot" data-evidence="5"><a href="images/825df595-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Propriedades do documento no relatório de reputação."><img src="images/825df595-005.webp" width="1440" height="254" loading="lazy" decoding="async" alt="Propriedades do documento no relatório de reputação."></a><figcaption>Propriedades do documento no relatório de reputação.</figcaption></figure>
+</section>
+<section id="confirmação-da-quantidade-de-arquivos" class="level4">
+<h4>6. Confirmação da quantidade de arquivos</h4>
+<p><strong>How many files are dropped on the disk?</strong> Na seção
+“Relations” do VirusTotal, confirmamos essa informação.</p>
+<figure class="report-shot" data-evidence="6"><a href="images/825df595-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Lista de artefatos gravados em disco."><img src="images/825df595-006.webp" width="1440" height="204" loading="lazy" decoding="async" alt="Lista de artefatos gravados em disco."></a><figcaption>Lista de artefatos gravados em disco.</figcaption></figure>
+</section>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../desafio02-malicious-vba/index.html"><span aria-hidden="true">←</span> Anterior: VBA-02</a><a href="../desafio-excel-4-0-macros/index.html"><span aria-hidden="true">→</span> Próximo: XLM-04</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

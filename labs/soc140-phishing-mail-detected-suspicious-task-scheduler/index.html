@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Alerta de phishing associado a uma mensagem sobre vacinação com anexo suspeito.">
+  <title>SOC140 · Phishing Mail Detected: Suspicious Task Scheduler | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Phishing</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC140 · Phishing Mail Detected: Suspicious Task Scheduler</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Phishing</dd></div><div><dt>Caso</dt><dd>SOC140</dd></div><div><dt>Registro</dt><dd>Verdadeiro positivo</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Alerta de phishing associado a uma mensagem sobre vacinação com anexo suspeito.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="abertura-do-chamado" class="level3">
+<h3>1. Abertura do chamado</h3>
+<p>Primeira coisa que eu fiz, fui no “Monitoring” e cliquei em
+“Investigation Channel”</p>
+<figure class="report-shot" data-evidence="1"><a href="images/264632f0-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Alerta registrado no Investigation Channel."><img src="images/264632f0-001.webp" width="1440" height="288" loading="lazy" decoding="async" alt="Alerta registrado no Investigation Channel."></a><figcaption>Alerta registrado no Investigation Channel.</figcaption></figure>
+<p>Cliquei no botão que esta ali para criarmos um ticket</p>
+</section>
+<section id="correlação-de-smtp-e-log-management" class="level3">
+<h3>2. Correlação de SMTP e Log Management</h3>
+<p>Peguei o SMTP Address e coloquei na parte de LOG management</p>
+<figure class="report-shot" data-evidence="2"><a href="images/264632f0-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Informações iniciais usadas para buscar o tráfego SMTP."><img src="images/264632f0-002.webp" width="1440" height="278" loading="lazy" decoding="async" alt="Informações iniciais usadas para buscar o tráfego SMTP."></a><figcaption>Informações iniciais usadas para buscar o tráfego SMTP.</figcaption></figure>
+<p>No Log management ele me trouxe a informação do Destination
+Address</p>
+<figure class="report-shot" data-evidence="3"><a href="images/264632f0-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Pesquisa de tráfego no Log Management."><img src="images/264632f0-003.webp" width="1440" height="255" loading="lazy" decoding="async" alt="Pesquisa de tráfego no Log Management."></a><figcaption>Pesquisa de tráfego no Log Management.</figcaption></figure>
+<p>Vamos copiar o email</p>
+</section>
+<section id="revisão-da-mensagem-no-email-security" class="level3">
+<h3>3. Revisão da mensagem no Email Security</h3>
+<p>Clicar na aba de emailsecurity</p>
+<figure class="report-shot" data-evidence="5"><a href="images/264632f0-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Painel de Email Security."><img src="images/264632f0-005.webp" width="1440" height="237" loading="lazy" decoding="async" alt="Painel de Email Security."></a><figcaption>Painel de Email Security.</figcaption></figure>
+<p>E filtrarmos o email</p>
+<figure class="report-shot" data-evidence="6"><a href="images/264632f0-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Filtros e lista de mensagens analisadas."><img src="images/264632f0-006.webp" width="1440" height="101" loading="lazy" decoding="async" alt="Filtros e lista de mensagens analisadas."></a><figcaption>Filtros e lista de mensagens analisadas.</figcaption></figure>
+<p>Clicamos nele e verificamos que dentro dele tem um arquivo MD5</p>
+</section>
+<section id="reputação-do-anexo" class="level3">
+<h3>4. Reputação do anexo</h3>
+<p>Pegamos o MD5 e colocamos no virus total</p>
+<figure class="report-shot" data-evidence="8"><a href="images/264632f0-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Resultado da consulta de reputação do anexo no VirusTotal."><img src="images/264632f0-008.webp" width="1440" height="666" loading="lazy" decoding="async" alt="Resultado da consulta de reputação do anexo no VirusTotal."></a><figcaption>Resultado da consulta de reputação do anexo no VirusTotal.</figcaption></figure>
+<p>Vamos abrir agora um aplicativo https://app.any.run/ e vamos
+pesquisar pelo MD5. Verificamos que quando abrimos ele tem um link e
+tambem o C2</p>
+<p>Vamos pegar esse IP 69[.]39[.]225[.]3 vamos abrir o LOG
+Management</p>
+<figure class="report-shot" data-evidence="10"><a href="images/264632f0-010.webp" target="_blank" rel="noopener" aria-label="Ampliar: Busca por eventos de rede associados ao endereço investigado."><img src="images/264632f0-010.webp" width="1421" height="671" loading="lazy" decoding="async" alt="Busca por eventos de rede associados ao endereço investigado."></a><figcaption>Busca por eventos de rede associados ao endereço investigado.</figcaption></figure>
+</section>
+<section id="registro-do-resultado-no-playbook" class="level3">
+<h3>5. Registro do resultado no playbook</h3>
+<p>Apos isso entramos no ticket</p>
+<figure class="report-shot" data-evidence="11"><a href="images/264632f0-011.webp" target="_blank" rel="noopener" aria-label="Ampliar: Verificação da presença de anexo ou URL."><img src="images/264632f0-011.webp" width="782" height="377" loading="lazy" decoding="async" alt="Verificação da presença de anexo ou URL."></a><figcaption>Verificação da presença de anexo ou URL.</figcaption></figure>
+<p>Clicamos em SIM</p>
+<figure class="report-shot" data-evidence="12"><a href="images/264632f0-012.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro da análise de anexo no playbook."><img src="images/264632f0-012.webp" width="704" height="420" loading="lazy" decoding="async" alt="Registro da análise de anexo no playbook."></a><figcaption>Registro da análise de anexo no playbook.</figcaption></figure>
+<figure class="report-shot" data-evidence="13"><a href="images/264632f0-013.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa de classificação do anexo."><img src="images/264632f0-013.webp" width="657" height="489" loading="lazy" decoding="async" alt="Etapa de classificação do anexo."></a><figcaption>Etapa de classificação do anexo.</figcaption></figure>
+<figure class="report-shot" data-evidence="14"><a href="images/264632f0-014.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa do playbook para verificar a entrega da mensagem."><img src="images/264632f0-014.webp" width="652" height="232" loading="lazy" decoding="async" alt="Etapa do playbook para verificar a entrega da mensagem."></a><figcaption>Etapa do playbook para verificar a entrega da mensagem.</figcaption></figure>
+<p>Not Delivered pois esta bloqueado Colocamos as informações que
+tiramos dos logs</p>
+<p>Escrevemos esse Playbook O relatório registrou um anexo considerado
+malicioso pelo VirusTotal e uma mensagem bloqueada pelo Email Security.
+A análise não confirmou a abertura do anexo. E marcamos como true
+positive</p>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../86-soc141-phishing-url-detected/index.html"><span aria-hidden="true">←</span> Anterior: SOC141</a><a href="../soc120-phishing-mail-detected-internal-to-internal/index.html"><span aria-hidden="true">→</span> Próximo: SOC120</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Investigação de um alerta de possível tentativa de injeção SQL em um servidor web.">
+  <title>SOC165 · Possível payload de injeção SQL detectado | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Ataques Web</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC165 · Possível payload de injeção SQL detectado</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Ataques Web</dd></div><div><dt>Caso</dt><dd>SOC165</dd></div><div><dt>Registro</dt><dd>Comprometimento não confirmado</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Investigação de um alerta de possível tentativa de injeção SQL em um servidor web.</p></section>
+      
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="objetivo" class="level3">
+<h3>Objetivo</h3>
+<p>Documentar a análise do alerta de possível tentativa de injeção SQL,
+correlacionar os indicadores disponíveis e registrar as próximas ações
+recomendadas.</p>
+</section>
+<section id="validar-o-alerta-e-abrir-o-ticket" class="level3">
+<h3>1. Validar o alerta e abrir o ticket</h3>
+<p>Acesse a aba <strong>Investigation Channel</strong> e confira os
+detalhes do incidente.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/15515bbf-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Localização do alerta no Investigation Channel."><img src="images/15515bbf-001.webp" width="1440" height="168" loading="lazy" decoding="async" alt="Localização do alerta no Investigation Channel."></a><figcaption>Localização do alerta no Investigation Channel.</figcaption></figure>
+<p>Registre o incidente criando um ticket.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/15515bbf-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro do alerta e campos iniciais de triagem."><img src="images/15515bbf-002.webp" width="1440" height="226" loading="lazy" decoding="async" alt="Registro do alerta e campos iniciais de triagem."></a><figcaption>Registro do alerta e campos iniciais de triagem.</figcaption></figure>
+</section>
+<section id="inspecionar-a-url-solicitada" class="level3">
+<h3>2. Inspecionar a URL solicitada</h3>
+<p>Copie o campo <strong>Requested URL</strong> do alerta e
+decodifique-o para inspecionar os parâmetros.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/15515bbf-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Identificação do campo de URL solicitada."><img src="images/15515bbf-003.webp" width="1440" height="183" loading="lazy" decoding="async" alt="Identificação do campo de URL solicitada."></a><figcaption>Identificação do campo de URL solicitada.</figcaption></figure>
+<p>A análise do parâmetro confirmou a presença de um padrão suspeito na
+consulta. O parâmetro <code>q</code> contém uma sequência compatível com
+uma tentativa de injeção SQL. Isso indica uma tentativa suspeita, mas,
+isoladamente, não confirma que a exploração teve sucesso.</p>
+</section>
+<section id="verificar-o-ip-de-origem" class="level3">
+<h3>3. Verificar o IP de origem</h3>
+<p>Pesquise o <strong>Source IP Address</strong> no VirusTotal.</p>
+<figure class="report-shot" data-evidence="4"><a href="images/15515bbf-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta de reputação do IP associado ao alerta."><img src="images/15515bbf-004.webp" width="1440" height="660" loading="lazy" decoding="async" alt="Consulta de reputação do IP associado ao alerta."></a><figcaption>Consulta de reputação do IP associado ao alerta.</figcaption></figure>
+<p>O resultado consultado sinalizou o IP
+<code>167[.]99[.]169[.]17</code> como malicioso. Considere esse dado
+como inteligência de apoio e correlacione-o com os registros internos do
+incidente.</p>
+</section>
+<section id="correlacionar-a-requisição-nos-logs" class="level3">
+<h3>4. Correlacionar a requisição nos logs</h3>
+<p>No <strong>Log Management</strong>, localize a requisição mais
+recente associada ao IP de origem e confira o horário, o destino, a URL
+e o resultado.</p>
+<figure class="report-shot" data-evidence="5"><a href="images/15515bbf-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Consulta de eventos no Log Management."><img src="images/15515bbf-005.webp" width="1440" height="134" loading="lazy" decoding="async" alt="Consulta de eventos no Log Management."></a><figcaption>Consulta de eventos no Log Management.</figcaption></figure>
+<p>A requisição retornou <strong>HTTP 500</strong>, indicando um erro
+interno do servidor. Esse código, por si só, não comprova
+comprometimento; investigue os logs da aplicação e do banco de dados no
+mesmo intervalo.</p>
+</section>
+<section id="revisar-o-case-management" class="level3">
+<h3>5. Revisar o Case Management</h3>
+<p>Consulte os registros abaixo no <strong>Case Management</strong> e
+use-os para complementar a linha do tempo e o registro do caso.</p>
+<figure class="report-shot" data-evidence="6"><a href="images/15515bbf-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Avaliação de tráfego suspeito."><img src="images/15515bbf-006.webp" width="507" height="299" loading="lazy" decoding="async" alt="Avaliação de tráfego suspeito."></a><figcaption>Avaliação de tráfego suspeito.</figcaption></figure>
+<figure class="report-shot" data-evidence="7"><a href="images/15515bbf-007.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação do tipo de alerta."><img src="images/15515bbf-007.webp" width="491" height="253" loading="lazy" decoding="async" alt="Classificação do tipo de alerta."></a><figcaption>Classificação do tipo de alerta.</figcaption></figure>
+<figure class="report-shot" data-evidence="8"><a href="images/15515bbf-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Verificação de teste agendado."><img src="images/15515bbf-008.webp" width="496" height="392" loading="lazy" decoding="async" alt="Verificação de teste agendado."></a><figcaption>Verificação de teste agendado.</figcaption></figure>
+<figure class="report-shot" data-evidence="9"><a href="images/15515bbf-009.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação da direção do tráfego no playbook."><img src="images/15515bbf-009.webp" width="465" height="273" loading="lazy" decoding="async" alt="Classificação da direção do tráfego no playbook."></a><figcaption>Classificação da direção do tráfego no playbook.</figcaption></figure>
+<figure class="report-shot" data-evidence="11"><a href="images/15515bbf-011.webp" target="_blank" rel="noopener" aria-label="Ampliar: Critérios de escalonamento para N2."><img src="images/15515bbf-011.webp" width="497" height="486" loading="lazy" decoding="async" alt="Critérios de escalonamento para N2."></a><figcaption>Critérios de escalonamento para N2.</figcaption></figure>
+<figure class="report-shot" data-evidence="12"><a href="images/15515bbf-012.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro de encerramento em Case Management."><img src="images/15515bbf-012.webp" width="1440" height="294" loading="lazy" decoding="async" alt="Registro de encerramento em Case Management."></a><figcaption>Registro de encerramento em Case Management.</figcaption></figure>
+</section>
+<section id="conclusão-e-ações-recomendadas" class="level3">
+<h3>6. Conclusão e ações recomendadas</h3>
+<p><strong>Conclusão:</strong> há evidências de uma possível tentativa
+de injeção SQL: a URL contém um payload suspeito, o IP de origem foi
+sinalizado pelo VirusTotal e a requisição resultou em HTTP 500. Com os
+dados apresentados aqui, não é possível afirmar que houve exploração
+bem-sucedida. <strong>Próximas ações:</strong> - Correlacionar o horário
+da requisição com os logs da aplicação, do banco de dados e de
+segurança. - Verificar requisições anteriores e posteriores do mesmo IP
+e procurar sinais de acesso ou alteração de dados. - Preservar os
+registros e atualizar o ticket com a linha do tempo e as evidências. -
+Avaliar o bloqueio do IP no firewall conforme o procedimento e a
+autorização da equipe; depois, monitorar novas tentativas. A
+recomendação original foi bloquear o IP <code>167[.]99[.]169[.]17</code>
+no firewall.</p>
+</section>
+</div>
+      </section>
+      
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc120-phishing-mail-detected-internal-to-internal/index.html"><span aria-hidden="true">←</span> Anterior: SOC120</a><a href="../116-soc166-c-digo-javascript-detectado-na-url-solicitada/index.html"><span aria-hidden="true">→</span> Próximo: SOC166</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>

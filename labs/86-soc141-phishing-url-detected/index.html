@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Triagem de um alerta de acesso a uma URL maliciosa a partir de uma estação de trabalho.">
+  <title>SOC141 · Phishing URL Detected | Portfólio SOC</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body id="inicio" class="case-document">
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="header"><div class="wrap bar">
+    <a class="brand" href="../../index.html"><span class="monogram" aria-hidden="true">GN</span><span>Gabriel Nunes <small>PORTFÓLIO SOC</small></span></a>
+    <nav aria-label="Navegação principal"><a href="../../index.html#competencias">Competências</a><a href="../../index.html#labs">Labs e desafios</a><a href="../../index.html#contato">Contato</a></nav>
+  </div></header>
+  <main id="principal" class="wrap case-page">
+    <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Phishing</span></div>
+    <article>
+      <header class="case-heading"><h1>SOC141 · Phishing URL Detected</h1><dl class="case-facts"><div><dt>Event ID</dt><dd>86</dd></div><div><dt>Tipo de alerta</dt><dd>Proxy</dd></div><div><dt>Severidade</dt><dd>High</dd></div><div><dt>Dificuldade</dt><dd>Beginner</dd></div><div><dt>Veredito</dt><dd>True Positive</dd></div></dl></header>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Um alerta de proxy registrou que a estação EmilyComp (172.16.17.49) tentou acessar um domínio de phishing. A consulta no VirusTotal e a correlação dos registros de proxy e firewall sustentaram a classificação como verdadeiro positivo. O host foi marcado como contaminado no exercício e o caso foi encaminhado ao N2.</p></section>
+      <section class="report-iocs"><h2 id="indicadores">IOCs</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Tabela de indicadores"><table><thead><tr><th scope="col">Tipo</th><th scope="col">Valor</th><th scope="col">Observação</th></tr></thead><tbody><tr><th scope="row">URL</th><td><code>mogagrocol[.]ru (caminho omitido)</code></td><td>A consulta incluía um identificador do usuário.</td></tr><tr><th scope="row">Domínio</th><td><code>mogagrocol[.]ru</code></td><td>Hostname de destino.</td></tr><tr><th scope="row">IP</th><td><code>91.189.114.8</code></td><td>Endereço de destino registrado, porta 80.</td></tr><tr><th scope="row">Host</th><td><code>EmilyComp / 172.16.17.49</code></td><td>Origem do acesso no ambiente simulado.</td></tr><tr><th scope="row">User-Agent</th><td><code>Chrome/79.0.3945.88</code></td><td>Registrado no alerta de proxy.</td></tr></tbody></table></div></section>
+      <section class="report-content" aria-labelledby="report-title">
+        <h2 id="report-title">Passo a passo da investigação</h2>
+        <div class="case-sections"><section id="abertura-do-ticket" class="level3">
+<h3>1. Abertura do ticket</h3>
+<p>Localizei o alerta SOC141 (evento 86) em <strong>Monitoring</strong>
+e abri o ticket com <strong>Create Ticket</strong>.</p>
+<figure class="report-shot" data-evidence="1"><a href="images/0f7283d5-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Alerta expandido no Monitoring, com o botão Create Ticket."><img src="images/0f7283d5-001.webp" width="1440" height="425" loading="lazy" decoding="async" alt="Alerta expandido no Monitoring, com o botão Create Ticket."></a><figcaption>Alerta expandido no Monitoring, com o botão Create Ticket.</figcaption></figure>
+<p>No <strong>Case Management</strong>, iniciei o playbook com
+<strong>Start Playbook</strong>.</p>
+<figure class="report-shot" data-evidence="2"><a href="images/0f7283d5-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Abertura e identificação do incidente em Case Management."><img src="images/0f7283d5-002.webp" width="1440" height="315" loading="lazy" decoding="async" alt="Abertura e identificação do incidente em Case Management."></a><figcaption>Abertura e identificação do incidente em Case Management.</figcaption></figure>
+</section>
+<section id="leitura-do-alerta" class="level3">
+<h3>2. Leitura do alerta</h3>
+<p>Voltei a <strong>Monitoring → Investigation Channel</strong> para
+revisar o alerta original.</p>
+<figure class="report-shot" data-evidence="3"><a href="images/0f7283d5-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Monitoring → Investigation Channel."><img src="images/0f7283d5-003.webp" width="1440" height="338" loading="lazy" decoding="async" alt="Monitoring → Investigation Channel."></a><figcaption>Monitoring → Investigation Channel.</figcaption></figure>
+<p>O alerta registrava a estação EmilyComp como origem, o IP
+<code>91.189.114.8</code> como destino e a ação como
+<strong>Allowed</strong>.</p>
+<figure class="report-shot" data-evidence="4"><a href="images/0f7283d5-004.webp" target="_blank" rel="noopener" aria-label="Ampliar: Detalhes do alerta no Investigation Channel."><img src="images/0f7283d5-004.webp" width="1440" height="422" loading="lazy" decoding="async" alt="Detalhes do alerta no Investigation Channel."></a><figcaption>Detalhes do alerta no Investigation Channel.</figcaption></figure>
+</section>
+<section id="reputação-da-url" class="level3">
+<h3>3. Reputação da URL</h3>
+<p>Identifiquei a URL solicitada no alerta. O domínio observado foi
+<code>mogagrocol[.]ru</code>.</p>
+<figure class="report-shot" data-evidence="5"><a href="images/0f7283d5-005.webp" target="_blank" rel="noopener" aria-label="Ampliar: Campo de URL destacado para a consulta de reputação."><img src="images/0f7283d5-005.webp" width="1440" height="423" loading="lazy" decoding="async" alt="Campo de URL destacado para a consulta de reputação."></a><figcaption>Campo de URL destacado para a consulta de reputação.</figcaption></figure>
+<p>Consultei a reputação da URL no VirusTotal. A captura mostra
+classificações como <strong>Phishing</strong>,
+<strong>Malicious</strong> e <strong>Malware</strong>.</p>
+<figure class="report-shot" data-evidence="6"><a href="images/0f7283d5-006.webp" target="_blank" rel="noopener" aria-label="Ampliar: Classificação de reputação da URL no VirusTotal."><img src="images/0f7283d5-006.webp" width="1440" height="688" loading="lazy" decoding="async" alt="Classificação de reputação da URL no VirusTotal."></a><figcaption>Classificação de reputação da URL no VirusTotal.</figcaption></figure>
+</section>
+<section id="correlação-com-os-logs-de-proxy-e-firewall" class="level3">
+<h3>4. Correlação com os logs de proxy e firewall</h3>
+<p>Identifiquei o endereço de destino no alerta.</p>
+<figure class="report-shot" data-evidence="7"><a href="images/0f7283d5-007.webp" target="_blank" rel="noopener" aria-label="Ampliar: Endereço de destino no registro do alerta."><img src="images/0f7283d5-007.webp" width="1440" height="440" loading="lazy" decoding="async" alt="Endereço de destino no registro do alerta."></a><figcaption>Endereço de destino no registro do alerta.</figcaption></figure>
+<p>Busquei o IP de destino no <strong>Log Management</strong> para
+correlacionar os eventos.</p>
+<figure class="report-shot" data-evidence="8"><a href="images/0f7283d5-008.webp" target="_blank" rel="noopener" aria-label="Ampliar: Pesquisa do endereço de destino em Log Management."><img src="images/0f7283d5-008.webp" width="1440" height="487" loading="lazy" decoding="async" alt="Pesquisa do endereço de destino em Log Management."></a><figcaption>Pesquisa do endereço de destino em Log Management.</figcaption></figure>
+<figure class="report-shot" data-evidence="9"><a href="images/0f7283d5-009.webp" target="_blank" rel="noopener" aria-label="Ampliar: Eventos encontrados para o endereço de destino."><img src="images/0f7283d5-009.webp" width="1440" height="238" loading="lazy" decoding="async" alt="Eventos encontrados para o endereço de destino."></a><figcaption>Eventos encontrados para o endereço de destino.</figcaption></figure>
+</section>
+<section id="investigação-do-endpoint" class="level3">
+<h3>5. Investigação do endpoint</h3>
+<p>Identifiquei a origem nos registros de proxy.</p>
+<figure class="report-shot" data-evidence="10"><a href="images/0f7283d5-010.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro correlacionado de proxy e firewall."><img src="images/0f7283d5-010.webp" width="1358" height="64" loading="lazy" decoding="async" alt="Registro correlacionado de proxy e firewall."></a><figcaption>Registro correlacionado de proxy e firewall.</figcaption></figure>
+<p>Consultei o endereço de origem no <strong>Endpoint
+Security</strong>.</p>
+<figure class="report-shot" data-evidence="11"><a href="images/0f7283d5-011.webp" target="_blank" rel="noopener" aria-label="Ampliar: Busca pelo endereço de origem no Endpoint Security."><img src="images/0f7283d5-011.webp" width="1292" height="320" loading="lazy" decoding="async" alt="Busca pelo endereço de origem no Endpoint Security."></a><figcaption>Busca pelo endereço de origem no Endpoint Security.</figcaption></figure>
+<p>O endereço de origem estava associado à estação
+<strong>EmilyComp</strong>.</p>
+<figure class="report-shot" data-evidence="12"><a href="images/0f7283d5-012.webp" target="_blank" rel="noopener" aria-label="Ampliar: Identificação da estação de trabalho no Endpoint Security."><img src="images/0f7283d5-012.webp" width="1440" height="432" loading="lazy" decoding="async" alt="Identificação da estação de trabalho no Endpoint Security."></a><figcaption>Identificação da estação de trabalho no Endpoint Security.</figcaption></figure>
+<p>Revisei o histórico do navegador e os processos do endpoint.</p>
+<figure class="report-shot" data-evidence="13"><a href="images/0f7283d5-013.webp" target="_blank" rel="noopener" aria-label="Ampliar: Aba de histórico do navegador no endpoint."><img src="images/0f7283d5-013.webp" width="1440" height="331" loading="lazy" decoding="async" alt="Aba de histórico do navegador no endpoint."></a><figcaption>Aba de histórico do navegador no endpoint.</figcaption></figure>
+<figure class="report-shot" data-evidence="14"><a href="images/0f7283d5-014.webp" target="_blank" rel="noopener" aria-label="Ampliar: Aba de processos do endpoint."><img src="images/0f7283d5-014.webp" width="1161" height="368" loading="lazy" decoding="async" alt="Aba de processos do endpoint."></a><figcaption>Aba de processos do endpoint.</figcaption></figure>
+<p>O histórico e a lista de processos apresentaram atividade suspeita.
+Marquei o host como contaminado no exercício.</p>
+<figure class="report-shot" data-evidence="15"><a href="images/0f7283d5-015.webp" target="_blank" rel="noopener" aria-label="Ampliar: Estado de contenção da estação no Endpoint Security."><img src="images/0f7283d5-015.webp" width="1440" height="734" loading="lazy" decoding="async" alt="Estado de contenção da estação no Endpoint Security."></a><figcaption>Estado de contenção da estação no Endpoint Security.</figcaption></figure>
+</section>
+<section id="registro-no-playbook-e-classificação" class="level3">
+<h3>6. Registro no playbook e classificação</h3>
+<p>Voltei ao playbook para registrar os resultados e os indicadores
+verificados.</p>
+<figure class="report-shot" data-evidence="16"><a href="images/0f7283d5-016.webp" target="_blank" rel="noopener" aria-label="Ampliar: Etapa do playbook dedicada à análise de reputação da URL."><img src="images/0f7283d5-016.webp" width="835" height="522" loading="lazy" decoding="async" alt="Etapa do playbook dedicada à análise de reputação da URL."></a><figcaption>Etapa do playbook dedicada à análise de reputação da URL.</figcaption></figure>
+<p>Registrei a verificação de acesso aos endereços investigados.</p>
+<figure class="report-shot" data-evidence="17"><a href="images/0f7283d5-017.webp" target="_blank" rel="noopener" aria-label="Ampliar: Verificação de acesso ao endereço investigado no playbook."><img src="images/0f7283d5-017.webp" width="597" height="449" loading="lazy" decoding="async" alt="Verificação de acesso ao endereço investigado no playbook."></a><figcaption>Verificação de acesso ao endereço investigado no playbook.</figcaption></figure>
+<p>Adicionei ao playbook a URL suspeita como indicador.</p>
+<figure class="report-shot" data-evidence="18"><a href="images/0f7283d5-018.webp" target="_blank" rel="noopener" aria-label="Ampliar: Formulário de indicadores no playbook."><img src="images/0f7283d5-018.webp" width="784" height="430" loading="lazy" decoding="async" alt="Formulário de indicadores no playbook."></a><figcaption>Formulário de indicadores no playbook.</figcaption></figure>
+<figure class="report-shot" data-evidence="19"><a href="images/0f7283d5-019.webp" target="_blank" rel="noopener" aria-label="Ampliar: Artefato registrado como endereço de URL."><img src="images/0f7283d5-019.webp" width="704" height="331" loading="lazy" decoding="async" alt="Artefato registrado como endereço de URL."></a><figcaption>Artefato registrado como endereço de URL.</figcaption></figure>
+<p>Registrei também o IP de destino.</p>
+<figure class="report-shot" data-evidence="20"><a href="images/0f7283d5-020.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro dos tipos de indicadores e endereço de destino."><img src="images/0f7283d5-020.webp" width="659" height="388" loading="lazy" decoding="async" alt="Registro dos tipos de indicadores e endereço de destino."></a><figcaption>Registro dos tipos de indicadores e endereço de destino.</figcaption></figure>
+<p>Revisei o resultado antes de encerrar o chamado.</p>
+<figure class="report-shot" data-evidence="21"><a href="images/0f7283d5-021.webp" target="_blank" rel="noopener" aria-label="Ampliar: Tela de revisão da classificação antes de fechar o chamado."><img src="images/0f7283d5-021.webp" width="755" height="386" loading="lazy" decoding="async" alt="Tela de revisão da classificação antes de fechar o chamado."></a><figcaption>Tela de revisão da classificação antes de fechar o chamado.</figcaption></figure>
+</section>
+</div>
+      </section>
+      <section class="report-section"><h2>Nota enviada no playbook</h2><blockquote lang="en">Analysis identified that endpoint 172.16.17.49 attempted to access a malicious URL (mogagrocol[.]ru). Log analysis showed that the initial outbound request was allowed by the firewall, but a subsequent attempt was blocked. The incident was escalated to the L2 security team for further investigation.</blockquote></section>
+<section class="report-section"><h2>MITRE ATT&amp;CK</h2><p>Mapeamento indicativo, não confirmação do vetor inicial.</p><ul class="techniques" role="list"><li><strong>T1204.001</strong> · User Execution: Malicious Link</li><li><strong>T1566.002</strong> · Phishing: Spearphishing Link</li></ul></section>
+<section class="report-section"><h2>Lições aprendidas</h2><ul><li>Confirmar o acesso nos logs de proxy e firewall, não apenas pelo alerta.</li><li>Correlacionar o IP de origem com o endpoint e verificar histórico de navegação e processos.</li><li>Registrar os indicadores e o motivo do escalonamento no playbook.</li></ul></section>
+      <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
+    </article>
+    <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc140-phishing-mail-detected-suspicious-task-scheduler/index.html"><span aria-hidden="true">→</span> Próximo: SOC140</a></nav>
+  </main>
+  <footer class="footer"><div class="wrap footer-content">
+    <div><strong>Gabriel Nunes Nascimento</strong><p>Portfólio de estudos em segurança defensiva.</p></div>
+    <a href="https://app.notion.com/p/Labs-Lets-Defend-3f9a931bc51c80a49198c1f0eaf91fb8?source=copy_link" target="_blank" rel="noopener noreferrer">Índice original no Notion <span aria-hidden="true">↗</span></a>
+    <a href="#inicio">Voltar ao topo <span aria-hidden="true">↑</span></a>
+  </div></footer>
+</body></html>
