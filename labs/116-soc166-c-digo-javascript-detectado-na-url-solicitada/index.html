@@ -6,6 +6,18 @@
   <meta name="theme-color" content="#0d1117">
   <meta name="description" content="Triagem de requisições web suspeitas a partir de um alerta sobre JavaScript na URL.">
   <title>SOC166 · Código JavaScript detectado na URL solicitada | Portfólio SOC</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://xenun221.github.io/labs/116-soc166-c-digo-javascript-detectado-na-url-solicitada/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Portfólio SOC | Gabriel Nunes Nascimento">
+  <meta property="og:title" content="SOC166 · Código JavaScript detectado na URL solicitada | Portfólio SOC">
+  <meta property="og:description" content="Triagem de requisições web suspeitas a partir de um alerta sobre JavaScript na URL.">
+  <meta property="og:url" content="https://xenun221.github.io/labs/116-soc166-c-digo-javascript-detectado-na-url-solicitada/index.html">
+  <meta property="og:image" content="https://xenun221.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
@@ -21,7 +33,8 @@
     <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Ataques Web</span></div>
     <article>
       <header class="case-heading"><h1>SOC166 · Código JavaScript detectado na URL solicitada</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Ataques Web</dd></div><div><dt>Caso</dt><dd>SOC166</dd></div><div><dt>Registro</dt><dd>Comprometimento não confirmado</dd></div></dl></header>
-      <section class="report-section report-summary"><h2>Resumo</h2><p>Triagem de requisições web suspeitas a partir de um alerta sobre JavaScript na URL.</p></section>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Requisições suspeitas do IP externo 112[.]85[.]42[.]13 ao host interno 172.16.17.17 (WebServer1002), com código JavaScript na URL. As respostas foram HTTP 302, que isoladamente não comprovam ataque. Sem evidência de sucesso nos dados analisados.</p></section>
+      <section class="report-iocs"><h2 id="indicadores">IOCs</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Tabela de indicadores"><table><thead><tr><th scope="col">Tipo</th><th scope="col">Valor</th><th scope="col">Observação</th></tr></thead><tbody><tr><th scope="row">IP</th><td><code>112[.]85[.]42[.]13</code></td><td>IP externo; WHOIS associado à APNIC.</td></tr><tr><th scope="row">Host</th><td><code>WebServer1002 / 172.16.17.17</code></td><td>Destino das requisições.</td></tr></tbody></table></div></section>
       
       <section class="report-content" aria-labelledby="report-title">
         <h2 id="report-title">Passo a passo da investigação</h2>
@@ -95,6 +108,8 @@ validar a URL de destino e revisar os alertas e a atividade observada no
 </div>
       </section>
       
+      <section class="report-section"><h2>Conclusão</h2><p>O IP realizou requisições suspeitas ao host interno, sem evidência de sucesso. A associação à China é apenas indicativa e deve ser validada. Recomenda-se preservar os logs, validar a URL de destino e revisar a atividade no WebServer1002.</p></section>
+<section class="report-section"><h2>Lições aprendidas</h2><ul><li>HTTP 302 isolado não confirma ataque.</li><li>Dados de WHOIS e geolocalização não identificam, por si só, o responsável.</li></ul></section>
       <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
     </article>
     <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../115-soc165-poss-vel-payload-de-inje-o-sql-detectado/index.html"><span aria-hidden="true">←</span> Anterior: SOC165</a><a href="../soc168-whoami-command-detected-in-request-body/index.html"><span aria-hidden="true">→</span> Próximo: SOC168</a></nav>

@@ -108,3 +108,8 @@ h2{font-size:clamp(28px,3vw,38px);font-weight:900;letter-spacing:-.045em;margin-
 @media(max-width:365px){.wrap{width:calc(100% - 30px)}h1{font-size:43px}nav{gap:7px}.filters button{padding-inline:10px}}
 @media(max-width:580px){.case-page{width:calc(100% - 32px);padding-top:15px}.case-heading h1{font-size:clamp(29px,8.8vw,44px)}.case-facts>div{padding:7px 9px}.report-section,.report-iocs,.report-content{margin-top:27px}.table-scroll table{min-width:0;table-layout:fixed;font-size:12px}.table-scroll :is(th,td){padding:7px 6px;overflow-wrap:anywhere}.table-scroll :is(th,td):first-child{width:23%}.table-scroll :is(th,td):nth-child(2){width:37%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+@media print{:root{color-scheme:light;--bg:#fff;--panel:#fff;--line:#c9d1d9;--ink:#111;--muted:#444;--green:#0b6e4f}
+body{background:#fff;color:#111;font-size:12px}.header,.skip,.filters,.search,.results,.case-neighbors,.footer,.radar,.back,.empty{display:none!important}
+a{color:#111}.report-shot img{max-width:100%;height:auto;break-inside:avoid}figure,table,blockquote,.report-section{break-inside:avoid}.card{break-inside:avoid;border-color:#c9d1d9}
+.kicker,.case-tag,.stats div,.skills li,.case-facts>div{background:#fff!important;border-color:#c9d1d9!important}}

@@ -4,8 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0d1117">
-  <meta name="description" content="Triagem de um alerta de e-mail entre remetente e destinatário internos.">
+  <meta name="description" content="Alerta de phishing entre usuários internos classificado como falso positivo.">
   <title>SOC120 · Phishing Mail Detected: Internal to Internal | Portfólio SOC</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://xenun221.github.io/labs/soc120-phishing-mail-detected-internal-to-internal/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Portfólio SOC | Gabriel Nunes Nascimento">
+  <meta property="og:title" content="SOC120 · Phishing Mail Detected: Internal to Internal | Portfólio SOC">
+  <meta property="og:description" content="Alerta de phishing entre usuários internos classificado como falso positivo.">
+  <meta property="og:url" content="https://xenun221.github.io/labs/soc120-phishing-mail-detected-internal-to-internal/index.html">
+  <meta property="og:image" content="https://xenun221.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
@@ -21,32 +33,31 @@
     <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Phishing</span></div>
     <article>
       <header class="case-heading"><h1>SOC120 · Phishing Mail Detected: Internal to Internal</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Phishing</dd></div><div><dt>Caso</dt><dd>SOC120</dd></div><div><dt>Registro</dt><dd>Falso positivo</dd></div></dl></header>
-      <section class="report-section report-summary"><h2>Resumo</h2><p>Triagem de um alerta de e-mail entre remetente e destinatário internos.</p></section>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Alerta de suposto phishing em e-mail entre usuários internos. Ao abrir a mensagem no Email Security, o conteúdo era uma mensagem comum, sem anexo ou link malicioso e sem atividade fora do padrão. Classificado como falso positivo.</p></section>
       
       <section class="report-content" aria-labelledby="report-title">
         <h2 id="report-title">Passo a passo da investigação</h2>
         <div class="case-sections"><section id="abertura-do-chamado" class="level3">
 <h3>1. Abertura do chamado</h3>
-<p>Como de inicio ja encontramos a tarefa no Monitoring e clicamos em
-“Investigation Channel”. e ja abrimos o ticket</p>
+<p>No <strong>Monitoring</strong>, abri o <strong>Investigation Channel</strong>, localizei o alerta e criei o ticket.</p>
 <figure class="report-shot" data-evidence="1"><a href="images/13d45a0a-001.webp" target="_blank" rel="noopener" aria-label="Ampliar: Registro inicial do alerta de e-mail interno."><img src="images/13d45a0a-001.webp" width="1440" height="300" loading="lazy" decoding="async" alt="Registro inicial do alerta de e-mail interno."></a><figcaption>Registro inicial do alerta de e-mail interno.</figcaption></figure>
 </section>
 <section id="busca-no-email-security" class="level3">
 <h3>2. Busca no Email Security</h3>
-<p>Filtramos pelo Email Security:</p>
+<p>Filtrei a mensagem no <strong>Email Security</strong>.</p>
 <figure class="report-shot" data-evidence="2"><a href="images/13d45a0a-002.webp" target="_blank" rel="noopener" aria-label="Ampliar: Painel de Email Security com a busca da investigação."><img src="images/13d45a0a-002.webp" width="1440" height="206" loading="lazy" decoding="async" alt="Painel de Email Security com a busca da investigação."></a><figcaption>Painel de Email Security com a busca da investigação.</figcaption></figure>
 </section>
 <section id="revisão-da-mensagem" class="level3">
 <h3>3. Revisão da mensagem</h3>
-<p>Verificamos o conteudo dentro do email e esta normal, apenas uma
-mensagem</p>
+<p>Abri o e-mail e o conteúdo era normal, apenas uma mensagem comum.</p>
 <figure class="report-shot" data-evidence="3"><a href="images/13d45a0a-003.webp" target="_blank" rel="noopener" aria-label="Ampliar: Mensagem revisada no Email Security."><img src="images/13d45a0a-003.webp" width="1440" height="185" loading="lazy" decoding="async" alt="Mensagem revisada no Email Security."></a><figcaption>Mensagem revisada no Email Security.</figcaption></figure>
-<p>E colocamos que não e malicioso pois não tem nenhuma atividade fora
-do comum ou seja e um falso positivo</p>
+<p>Classifiquei o alerta como falso positivo, pois não havia nenhuma atividade fora do comum.</p>
 </section>
 </div>
       </section>
       
+      <section class="report-section"><h2>Conclusão</h2><p>Sem atividade fora do comum no e-mail. Classificado como falso positivo.</p></section>
+<section class="report-section"><h2>Lições aprendidas</h2><ul><li>Nem todo alerta de phishing é malicioso: validar o conteúdo da mensagem antes de escalar.</li><li>Usar o Email Security para inspecionar corpo, anexos e links.</li></ul></section>
       <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
     </article>
     <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc140-phishing-mail-detected-suspicious-task-scheduler/index.html"><span aria-hidden="true">←</span> Anterior: SOC140</a><a href="../115-soc165-poss-vel-payload-de-inje-o-sql-detectado/index.html"><span aria-hidden="true">→</span> Próximo: SOC165</a></nav>

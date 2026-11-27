@@ -6,6 +6,18 @@
   <meta name="theme-color" content="#0d1117">
   <meta name="description" content="Estudo de documentos de Office associados à vulnerabilidade de MSHTML de 2021.">
   <title>MSHTML | Portfólio SOC</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://xenun221.github.io/labs/desafio02-mshtml/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Portfólio SOC | Gabriel Nunes Nascimento">
+  <meta property="og:title" content="MSHTML | Portfólio SOC">
+  <meta property="og:description" content="Estudo de documentos de Office associados à vulnerabilidade de MSHTML de 2021.">
+  <meta property="og:url" content="https://xenun221.github.io/labs/desafio02-mshtml/index.html">
+  <meta property="og:image" content="https://xenun221.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
@@ -22,6 +34,7 @@
     <article>
       <header class="case-heading"><h1>MSHTML</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Desafios</dd></div><div><dt>Caso</dt><dd>DOC-05</dd></div><div><dt>Registro</dt><dd>Análise documental</dd></div></dl></header>
       <section class="report-section report-summary"><h2>Resumo</h2><p>Estudo de documentos de Office associados à vulnerabilidade de MSHTML de 2021.</p></section>
+      <section class="report-iocs"><h2 id="indicadores">IOCs</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Tabela de indicadores"><table><thead><tr><th scope="col">Tipo</th><th scope="col">Valor</th><th scope="col">Observação</th></tr></thead><tbody><tr><th scope="row">CVE</th><td><code>CVE-2021-40444</code></td><td>Vulnerabilidade do MSHTML explorada pelos arquivos.</td></tr><tr><th scope="row">Domínio</th><td><code>hidusi[.]com</code></td><td>income_tax_and_benefit_return_2021.docx.</td></tr></tbody></table></div></section>
       
       <section class="report-content" aria-labelledby="report-title">
         <h2 id="report-title">Passo a passo da investigação</h2>
@@ -83,6 +96,7 @@ em comum ao analisar os arquivos no VirusTotal.</p>
 </div>
       </section>
       
+      <section class="report-section"><h2>Lições aprendidas</h2><ul><li>Procurar a CVE em comum ao analisar vários arquivos no VirusTotal.</li></ul></section>
       <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
     </article>
     <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../desafio-excel-4-0-macros/index.html"><span aria-hidden="true">←</span> Anterior: XLM-04</a></nav>
