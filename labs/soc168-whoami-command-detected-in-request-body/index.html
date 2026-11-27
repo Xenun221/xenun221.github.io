@@ -6,6 +6,18 @@
   <meta name="theme-color" content="#0d1117">
   <meta name="description" content="Investigação de possível injeção de comandos contra um servidor web.">
   <title>SOC168 · Whoami Command Detected in Request Body | Portfólio SOC</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://xenun221.github.io/labs/soc168-whoami-command-detected-in-request-body/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Portfólio SOC | Gabriel Nunes Nascimento">
+  <meta property="og:title" content="SOC168 · Whoami Command Detected in Request Body | Portfólio SOC">
+  <meta property="og:description" content="Investigação de possível injeção de comandos contra um servidor web.">
+  <meta property="og:url" content="https://xenun221.github.io/labs/soc168-whoami-command-detected-in-request-body/index.html">
+  <meta property="og:image" content="https://xenun221.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
@@ -22,6 +34,7 @@
     <article>
       <header class="case-heading"><h1>SOC168 · Whoami Command Detected in Request Body</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Ataques Web</dd></div><div><dt>Caso</dt><dd>SOC168</dd></div><div><dt>Registro</dt><dd>Escalonamento recomendado</dd></div></dl></header>
       <section class="report-section report-summary"><h2>Resumo</h2><p>Investigação de possível injeção de comandos contra um servidor web.</p></section>
+      <section class="report-iocs"><h2 id="indicadores">IOCs</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Tabela de indicadores"><table><thead><tr><th scope="col">Tipo</th><th scope="col">Valor</th><th scope="col">Observação</th></tr></thead><tbody><tr><th scope="row">IP</th><td><code>61[.]177[.]172[.]87</code></td><td>IP de origem, malicioso no VirusTotal.</td></tr><tr><th scope="row">Host</th><td><code>WebServer1004</code></td><td>Alvo das requisições.</td></tr><tr><th scope="row">Comandos</th><td><code>whoami, ls, cat</code></td><td>Registrados nas cinco requisições.</td></tr></tbody></table></div></section>
       
       <section class="report-content" aria-labelledby="report-title">
         <h2 id="report-title">Passo a passo da investigação</h2>
@@ -137,6 +150,7 @@ conclusão/encaminhamento documentado durante a triagem.</li>
 </div>
       </section>
       
+      <section class="report-section"><h2>Lições aprendidas</h2><ul><li>Confirmar no EDR se houve execução dos comandos.</li><li>Verificar caminhos acessados e conexões de saída.</li><li>Isolar o ativo conforme o procedimento e escalar ao N2.</li></ul></section>
       <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
     </article>
     <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../116-soc166-c-digo-javascript-detectado-na-url-solicitada/index.html"><span aria-hidden="true">←</span> Anterior: SOC166</a><a href="../soc167-ls-command-detected-in-requested-url/index.html"><span aria-hidden="true">→</span> Próximo: SOC167</a></nav>

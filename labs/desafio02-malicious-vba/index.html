@@ -6,6 +6,18 @@
   <meta name="theme-color" content="#0d1117">
   <meta name="description" content="Análise de uma macro encontrada em um documento anexado a uma mensagem sobre fatura.">
   <title>Malicious VBA | Portfólio SOC</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://xenun221.github.io/labs/desafio02-malicious-vba/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Portfólio SOC | Gabriel Nunes Nascimento">
+  <meta property="og:title" content="Malicious VBA | Portfólio SOC">
+  <meta property="og:description" content="Análise de uma macro encontrada em um documento anexado a uma mensagem sobre fatura.">
+  <meta property="og:url" content="https://xenun221.github.io/labs/desafio02-malicious-vba/index.html">
+  <meta property="og:image" content="https://xenun221.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
@@ -22,6 +34,7 @@
     <article>
       <header class="case-heading"><h1>Malicious VBA</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Desafios</dd></div><div><dt>Caso</dt><dd>VBA-02</dd></div><div><dt>Registro</dt><dd>Análise estática</dd></div></dl></header>
       <section class="report-section report-summary"><h2>Resumo</h2><p>Análise de uma macro encontrada em um documento anexado a uma mensagem sobre fatura.</p></section>
+      <section class="report-iocs"><h2 id="indicadores">IOCs</h2><div class="table-scroll" tabindex="0" role="region" aria-label="Tabela de indicadores"><table><thead><tr><th scope="col">Tipo</th><th scope="col">Valor</th><th scope="col">Observação</th></tr></thead><tbody><tr><th scope="row">URL</th><td><code>hxxps://tinyurl[.]com/g2z2gh6f</code></td><td>Hospeda o payload.</td></tr><tr><th scope="row">Arquivo</th><td><code>dropped.exe</code></td><td>Nome do payload.</td></tr><tr><th scope="row">SHA-256</th><td><code>a9e02a6c316b3d7659b48621015d504820337f1f88dd588b75597db95750d16e</code></td><td>Hash do invoice.vb.</td></tr></tbody></table></div></section>
       
       <section class="report-content" aria-labelledby="report-title">
         <h2 id="report-title">Passo a passo da investigação</h2>
@@ -86,6 +99,7 @@ associada à atividade de processos do Windows.</p>
 </div>
       </section>
       
+      <section class="report-section"><h2>Lições aprendidas</h2><ul><li>Decodificar strings em hexadecimal no CyberChef.</li><li>Analisar macros como texto, nunca executá-las fora de ambiente isolado.</li></ul></section>
       <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
     </article>
     <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../desafio01-malicious-doc/index.html"><span aria-hidden="true">←</span> Anterior: DOC-01</a><a href="../desafio03-remote-working/index.html"><span aria-hidden="true">→</span> Próximo: DOC-03</a></nav>

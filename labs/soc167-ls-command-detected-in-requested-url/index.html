@@ -6,6 +6,18 @@
   <meta name="theme-color" content="#0d1117">
   <meta name="description" content="Triagem de um alerta gerado por uma solicitação web com um padrão associado a comandos.">
   <title>SOC167 · LS Command Detected in Requested URL | Portfólio SOC</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://xenun221.github.io/labs/soc167-ls-command-detected-in-requested-url/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Portfólio SOC | Gabriel Nunes Nascimento">
+  <meta property="og:title" content="SOC167 · LS Command Detected in Requested URL | Portfólio SOC">
+  <meta property="og:description" content="Triagem de um alerta gerado por uma solicitação web com um padrão associado a comandos.">
+  <meta property="og:url" content="https://xenun221.github.io/labs/soc167-ls-command-detected-in-requested-url/index.html">
+  <meta property="og:image" content="https://xenun221.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&amp;display=swap">
@@ -21,7 +33,7 @@
     <div class="case-path"><a class="back" href="../../index.html#labs"><span aria-hidden="true">←</span> Voltar ao portfólio</a><span class="case-tag">Ataques Web</span></div>
     <article>
       <header class="case-heading"><h1>SOC167 · LS Command Detected in Requested URL</h1><dl class="case-facts"><div><dt>Categoria</dt><dd>Ataques Web</dd></div><div><dt>Caso</dt><dd>SOC167</dd></div><div><dt>Registro</dt><dd>Sem indícios maliciosos</dd></div></dl></header>
-      <section class="report-section report-summary"><h2>Resumo</h2><p>Triagem de um alerta gerado por uma solicitação web com um padrão associado a comandos.</p></section>
+      <section class="report-section report-summary"><h2>Resumo</h2><p>Alerta de comando ls na URL solicitada. O IP 188.114.96.15 foi classificado como limpo no VirusTotal e associado à Cloudflare, e o host de origem ELIOTPRD (172.16.17.46) não apresentou comandos ou acessos suspeitos.</p></section>
       
       <section class="report-content" aria-labelledby="report-title">
         <h2 id="report-title">Passo a passo da investigação</h2>
@@ -59,6 +71,8 @@ comandos ou acesso a sites suspeitos.</p>
 </div>
       </section>
       
+      <section class="report-section"><h2>Conclusão</h2><p>Nenhuma ação maliciosa identificada neste caso.</p></section>
+<section class="report-section"><h2>Lições aprendidas</h2><ul><li>Validar a reputação do IP e o comportamento do host de origem antes de classificar.</li></ul></section>
       <p class="lab-note">Exercício simulado. Algumas capturas foram recortadas ou tiveram campos ocultados.</p>
     </article>
     <nav class="case-neighbors" aria-label="Páginas vizinhas"><a href="../soc168-whoami-command-detected-in-request-body/index.html"><span aria-hidden="true">←</span> Anterior: SOC168</a><a href="../soc169-possible-idor-attack-detected/index.html"><span aria-hidden="true">→</span> Próximo: SOC169</a></nav>
